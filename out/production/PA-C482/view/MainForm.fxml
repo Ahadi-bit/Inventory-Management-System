@@ -26,9 +26,9 @@
                   <TableColumn fx:id="PartsPerUnitCol" prefWidth="141.0" text="Price/ Cost per Unit" />
               </columns>
             </TableView>
-            <Button layoutX="239.0" layoutY="177.0" mnemonicParsing="false" onAction="#AddParts" text="Add" />
-            <Button layoutX="283.0" layoutY="177.0" mnemonicParsing="false" onAction="#ModifyParts" text="Modify" />
-            <Button layoutX="351.0" layoutY="177.0" mnemonicParsing="false" onAction="#DeletePart" text="Delete" />
+            <Button layoutX="239.0" layoutY="177.0" mnemonicParsing="false" onAction="#OnActionAddParts" text="Add" />
+            <Button layoutX="283.0" layoutY="177.0" mnemonicParsing="false" onAction="#OnActionModifyParts" text="Modify" />
+            <Button layoutX="351.0" layoutY="177.0" mnemonicParsing="false" onAction="#OnActionDeletePart" text="Delete" />
             <Text layoutX="21.0" layoutY="30.0" stroke="BLACK" strokeType="INSIDE" text="Parts" wrappingWidth="61.13671875">
                <font>
                   <Font size="15.0" />
@@ -47,9 +47,9 @@
                   <TableColumn prefWidth="124.0" text="Price/ Cost per Unit" />
                </columns>
             </TableView>
-            <Button layoutX="254.0" layoutY="177.0" mnemonicParsing="false" onAction="#AddProducts" text="Add" />
-            <Button layoutX="298.0" layoutY="177.0" mnemonicParsing="false" onAction="#ModifyProducts" text="Modify" />
-            <Button layoutX="362.0" layoutY="177.0" mnemonicParsing="false" onAction="#DeleteProductsBtn" text="Delete" />
+            <Button layoutX="254.0" layoutY="177.0" mnemonicParsing="false" onAction="#OnActionAddProducts" text="Add" />
+            <Button layoutX="298.0" layoutY="177.0" mnemonicParsing="false" onAction="#OnActionModifyProducts" text="Modify" />
+            <Button layoutX="362.0" layoutY="177.0" mnemonicParsing="false" onAction="#OnActionDeleteProducts" text="Delete" />
             <Text layoutX="25.0" layoutY="29.0" stroke="BLACK" strokeType="INSIDE" text="Products" wrappingWidth="61.13671875">
                <font>
                   <Font size="15.0" />
@@ -58,6 +58,6 @@
             <TextField layoutX="250.0" layoutY="11.0" />
          </children>
       </Pane>
-      <Button layoutX="869.0" layoutY="272.0" mnemonicParsing="false" onAction="#ExitBtn" text="Exit" />
+      <Button layoutX="869.0" layoutY="272.0" mnemonicParsing="false" onAction="#OnActionExit" text="Exit" />
    </children>
 </AnchorPane>

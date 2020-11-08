@@ -84,4 +84,6 @@ public class AddProductForm {
 
     }
 
+    public void OnActionAddItem(ActionEvent actionEvent) {
+    }
 }
