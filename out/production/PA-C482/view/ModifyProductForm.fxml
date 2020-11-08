@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="467.0" prefWidth="819.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModifyProductForm">
+    <children>
+        <Text layoutX="28.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Product" wrappingWidth="168.13671875">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <GridPane layoutX="14.0" layoutY="145.0" prefHeight="150.0" prefWidth="403.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="79.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="121.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="51.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="150.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" textAlignment="CENTER" wrappingWidth="63.607421875" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER" wrappingWidth="78.693359375" GridPane.rowIndex="1" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inv" textAlignment="CENTER" wrappingWidth="63.732421875" GridPane.rowIndex="2" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price" textAlignment="CENTER" wrappingWidth="71.6171875" GridPane.rowIndex="3" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Max" textAlignment="CENTER" wrappingWidth="69.388671875" GridPane.rowIndex="4" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Min" textAlignment="CENTER" wrappingWidth="40.47265625" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                <TextField disable="true" GridPane.columnIndex="1" />
+                <TextField fx:id="Nametxt" prefHeight="25.0" prefWidth="66.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="Invtxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="Pricetxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="Maxtxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="mintxt" prefHeight="25.0" prefWidth="114.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            </children>
+        </GridPane>
+        <TableView layoutX="456.0" layoutY="66.0" prefHeight="129.0" prefWidth="335.0">
+            <columns>
+                <TableColumn fx:id="partIdcol" prefWidth="53.0" text="Part ID" />
+                <TableColumn fx:id="partNamecol" prefWidth="70.0" text="Part Name" />
+            <TableColumn fx:id="invLvlcol" prefWidth="95.0" text="Inventory Level" />
+            <TableColumn fx:id="pricecol" prefWidth="116.0" text="Price/ Cost per Unit" />
+            </columns>
+        </TableView>
+        <Button layoutX="721.0" layoutY="201.0" mnemonicParsing="false" onAction="#OnActionAdd" text="Add" />
+        <TableView layoutX="456.0" layoutY="234.0" prefHeight="138.0" prefWidth="335.0">
+            <columns>
+                <TableColumn fx:id="associatedPartIDcol" prefWidth="46.0" text="Part ID" />
+                <TableColumn fx:id="associatedPartNamecol" prefWidth="66.0" text="Part Name" />
+            <TableColumn fx:id="associatedInvLvlcol" prefWidth="95.0" text="Inventory Level" />
+            <TableColumn fx:id="AssociatedPriceCol" prefWidth="127.0" text="Price/ Cost per Unit" />
+            </columns>
+        </TableView>
+        <Button layoutX="629.0" layoutY="382.0" mnemonicParsing="false" onAction="#OnActionRemoveAssociated" text="Remove Associated Part" />
+        <Button layoutX="629.0" layoutY="419.0" mnemonicParsing="false" onAction="#OnActionSave" text="Save" />
+        <Button layoutX="721.0" layoutY="419.0" mnemonicParsing="false" onAction="#OnActionCancel" text="Cancel" />
+        <TextField fx:id="searchtxt" layoutX="642.0" layoutY="28.0" promptText="Search" />
+    </children>
+</AnchorPane>
