@@ -4,6 +4,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,10 +20,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainForm {
+public class MainForm implements Initializable {
 
     Stage stage;
     Parent scene;
+
 
     @FXML
     private TableView<Part> partsTable;
@@ -103,15 +105,19 @@ public class MainForm {
 
     }
 
-    @FXML
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         partsTable.setItems(Inventory.getAllParts());
         PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        PartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        InvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        PartsPerUnitCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         productsTable.setItems(Inventory.getAllProducts());
         ProductIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-
+        ProductNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productPerUnitCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
 
