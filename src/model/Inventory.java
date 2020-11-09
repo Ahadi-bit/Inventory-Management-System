@@ -49,10 +49,10 @@ public class Inventory {
 //
 //    }
 
-    public ObservableList<Part> getAllParts(){
+    public static ObservableList<Part> getAllParts(){
         return allParts;
     }
-    public ObservableList<Product> getAllProducts(){
+    public static ObservableList<Product> getAllProducts(){
         return allProducts;
     }
 }

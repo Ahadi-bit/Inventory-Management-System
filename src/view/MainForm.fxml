@@ -44,7 +44,7 @@
                   <TableColumn fx:id="ProductIdCol" prefWidth="90.0" text="Product ID" />
                   <TableColumn fx:id="ProductNameCol" prefWidth="96.0" text="Product name" />
                   <TableColumn fx:id="productInvLvlCol" prefWidth="95.0" text="Inventory Level" />
-                  <TableColumn prefWidth="124.0" text="Price/ Cost per Unit" />
+                  <TableColumn fx:id="productPerUnitCol" prefWidth="124.0" text="Price/ Cost per Unit" />
                </columns>
             </TableView>
             <Button layoutX="254.0" layoutY="177.0" mnemonicParsing="false" onAction="#OnActionAddProducts" text="Add" />

@@ -9,9 +9,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Inventory;
+import model.Part;
+import model.Product;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class MainForm {
 
@@ -19,31 +25,35 @@ public class MainForm {
     Parent scene;
 
     @FXML
-    private TableView<?> partsTable;
+    private TableView<Part> partsTable;
 
     @FXML
-    private TableColumn<?, ?> PartIdCol;
+    private TableColumn<Part, Integer> PartIdCol;
 
     @FXML
-    private TableColumn<?, ?> PartNameCol;
+    private TableColumn<Part, String> PartNameCol;
 
     @FXML
-    private TableColumn<?, ?> InvLvlCol;
+    private TableColumn<Part, Integer> InvLvlCol;
 
     @FXML
-    private TableColumn<?, ?> PartsPerUnitCol;
+    private TableColumn<Part, Double> PartsPerUnitCol;
 
     @FXML
-    private TableView<?> productsTable;
+    private TableView<Product> productsTable;
 
     @FXML
-    private TableColumn<?, ?> ProductIdCol;
+    private TableColumn<Product, Integer> ProductIdCol;
 
     @FXML
-    private TableColumn<?, ?> ProductNameCol;
+    private TableColumn<Product, String> ProductNameCol;
 
     @FXML
-    private TableColumn<?, ?> productInvLvlCol;
+    private TableColumn<Product, Integer> productInvLvlCol;
+
+    @FXML
+    private TableColumn<Product, Double> productPerUnitCol;
+
 
     @FXML
     void OnActionAddParts(ActionEvent event) throws IOException {
@@ -92,4 +102,18 @@ public class MainForm {
         stage.show();
 
     }
+
+    @FXML
+    public void initialize(URL url, ResourceBundle rb) {
+        partsTable.setItems(Inventory.getAllParts());
+        PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        productsTable.setItems(Inventory.getAllProducts());
+        ProductIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+
+    }
+
+
+
 }
