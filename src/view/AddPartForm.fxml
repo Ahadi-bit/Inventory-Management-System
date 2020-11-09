@@ -50,7 +50,7 @@
             <TextField fx:id="addPartInvtxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="addPartPricetxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="addPartMaxtxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="addPartMachineIdtxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="addPartTypetxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Min" textAlignment="CENTER" wrappingWidth="58.47265625" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <TextField fx:id="addPartMintxt" prefHeight="25.0" prefWidth="54.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <Label prefHeight="17.0" prefWidth="50.0" text="Name" GridPane.rowIndex="1" />

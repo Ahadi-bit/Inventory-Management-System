@@ -31,12 +31,12 @@ public class Main extends Application {
     }
 
     void addTestData(Inventory inv){
-        Part a1 = new InHouse(1,"Part A1",2.99,10,100,101);
-        Part a2 = new InHouse(2,"Part A2",4.99,6,100,101);
-        Part b = new InHouse(3,"Part B",7.99,3,100,102);
-        Part c1 = new Outsourced(1,"Part C1",7.99,3,99,102);
-        Part c2 = new Outsourced(2,"Part C2",9.99,8,100,102);
-        Part d = new Outsourced(3,"Part D",21.99,2,89,102);
+        Part a1 = new InHouse(1,"Part A1",2.99,10,100,101,3);
+        Part a2 = new InHouse(2,"Part A2",4.99,6,100,101,4);
+        Part b = new InHouse(3,"Part B",7.99,3,100,102,5);
+        Part c1 = new Outsourced(1,"Part C1",7.99,3,99,102, "IBM");
+        Part c2 = new Outsourced(2,"Part C2",9.99,8,100,102,"GameStop");
+        Part d = new Outsourced(3,"Part D",21.99,2,89,102, "Aldi");
 
         Product prod1 = new Product(1,"PROD 1",10.99,7,101,105);
         Product prod2 = new Product(2,"PROD 2",8.99,3,77,18);
