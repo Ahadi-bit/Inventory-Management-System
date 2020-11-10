@@ -62,8 +62,13 @@ public class Inventory {
     }
 
     public static boolean deletePart(Part selectedPart){
-        allParts.remove(selectedPart);
-        return true;
+       for(int i = 0; i<allParts.size(); i++){
+           if(allParts.get(i).getId() == selectedPart.getId()){
+               allParts.remove(i);
+               return true;
+           }
+       }
+       return false;
     }
 
     public static boolean deleteProduct(Product selectedProduct){

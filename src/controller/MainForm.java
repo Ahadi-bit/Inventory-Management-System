@@ -9,9 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Inventory;
@@ -20,6 +18,7 @@ import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainForm implements Initializable {
@@ -58,10 +57,7 @@ public class MainForm implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPerUnitCol;
 
-    private ObservableList<Part> partInventory = FXCollections.observableArrayList();
-    private ObservableList<Product> productInventory = FXCollections.observableArrayList();
-    private ObservableList<Part> partsInventorySearch = FXCollections.observableArrayList();
-    private ObservableList<Product> productInventorySearch = FXCollections.observableArrayList();
+
 
 
     @FXML
@@ -82,17 +78,21 @@ public class MainForm implements Initializable {
 
     @FXML
     void OnActionDeletePart(ActionEvent event) {
-        partsTable.getItems().removeAll(partsTable.getSelectionModel().getSelectedItem());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
+        alert.setTitle("Confirm");
+        if(partsTable.getSelectionModel().getSelectedItem() != null){
+            Optional<ButtonType> result = alert.showAndWait();
+            if(((Optional<?>)result).isPresent() && result.get() == ButtonType.OK){
+                Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
+                partsTable.getItems().removeAll(partsTable.getSelectionModel().getSelectedItem());
+            }
+        }
+
     }
 
     @FXML
     void OnActionDeleteProducts(ActionEvent event) {
-        Product removeProduct = productsTable.getSelectionModel().getSelectedItem();
-
-        productInventory.remove(removeProduct);
-        productsTable.setItems(productInventory);
-        productsTable.refresh();
-
+        productsTable.getItems().remove(productsTable.getSelectionModel().getSelectedItem());
     }
 
     @FXML
@@ -131,7 +131,4 @@ public class MainForm implements Initializable {
         productInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPerUnitCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
-
-
-
 }
