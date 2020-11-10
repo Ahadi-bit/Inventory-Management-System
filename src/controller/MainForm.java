@@ -84,7 +84,6 @@ public class MainForm implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if(((Optional<?>)result).isPresent() && result.get() == ButtonType.OK){
                 Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
-                partsTable.getItems().removeAll(partsTable.getSelectionModel().getSelectedItem());
             }
         }
 
@@ -92,7 +91,14 @@ public class MainForm implements Initializable {
 
     @FXML
     void OnActionDeleteProducts(ActionEvent event) {
-        productsTable.getItems().remove(productsTable.getSelectionModel().getSelectedItem());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
+        alert.setTitle("Confirm");
+        if(productsTable.getSelectionModel().getSelectedItem() != null){
+            Optional<ButtonType> result = alert.showAndWait();
+            if(((Optional<?>)result).isPresent() && result.get() == ButtonType.OK){
+                Inventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
+            }
+        }
     }
 
     @FXML
