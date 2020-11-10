@@ -89,7 +89,6 @@ public class MainForm implements Initializable {
     void OnActionDeleteProducts(ActionEvent event) {
         Product removeProduct = productsTable.getSelectionModel().getSelectedItem();
 
-        inv.deleteProduct(removeProduct.getId());
         productInventory.remove(removeProduct);
         productsTable.setItems(productInventory);
         productsTable.refresh();
