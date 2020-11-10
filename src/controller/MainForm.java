@@ -1,6 +1,8 @@
 package controller;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +26,7 @@ public class MainForm implements Initializable {
 
     Stage stage;
     Parent scene;
-
+    Inventory inv = new Inventory();
 
     @FXML
     private TableView<Part> partsTable;
@@ -56,6 +58,11 @@ public class MainForm implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPerUnitCol;
 
+    private ObservableList<Part> partInventory = FXCollections.observableArrayList();
+    private ObservableList<Product> productInventory = FXCollections.observableArrayList();
+    private ObservableList<Part> partsInventorySearch = FXCollections.observableArrayList();
+    private ObservableList<Product> productInventorySearch = FXCollections.observableArrayList();
+
 
     @FXML
     void OnActionAddParts(ActionEvent event) throws IOException {
@@ -75,11 +82,17 @@ public class MainForm implements Initializable {
 
     @FXML
     void OnActionDeletePart(ActionEvent event) {
-
+        partsTable.getItems().removeAll(partsTable.getSelectionModel().getSelectedItem());
     }
 
     @FXML
     void OnActionDeleteProducts(ActionEvent event) {
+        Product removeProduct = productsTable.getSelectionModel().getSelectedItem();
+
+        inv.deleteProduct(removeProduct.getId());
+        productInventory.remove(removeProduct);
+        productsTable.setItems(productInventory);
+        productsTable.refresh();
 
     }
 

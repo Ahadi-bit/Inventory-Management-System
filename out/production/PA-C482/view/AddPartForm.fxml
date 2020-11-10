@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -19,11 +20,11 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <RadioButton fx:id="inHousebtn" layoutX="170.0" layoutY="35.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="80.0" text="In-House">
+      <RadioButton fx:id="inHousebtn" layoutX="170.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#OnClickInHouse" prefHeight="17.0" prefWidth="80.0" text="In-House">
          <toggleGroup>
             <ToggleGroup fx:id="partType" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="outSourcedbtn" layoutX="259.0" layoutY="35.0" mnemonicParsing="false" text="Outsourced" toggleGroup="$partType" />
+      <RadioButton fx:id="outSourcedbtn" layoutX="259.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#OnClickOutSource" text="Outsourced" toggleGroup="$partType" />
       <VBox layoutX="60.0" layoutY="90.0" prefHeight="200.0" prefWidth="342.0" />
       <GridPane layoutX="32.0" layoutY="74.0" prefHeight="180.0" prefWidth="506.0">
         <columnConstraints>
@@ -41,13 +42,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" textAlignment="CENTER" wrappingWidth="81.13671875" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER" wrappingWidth="100.13671875" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inv" textAlignment="CENTER" wrappingWidth="86.13671875" GridPane.rowIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price/Cost" textAlignment="CENTER" wrappingWidth="123.13671875" GridPane.rowIndex="3" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Max" textAlignment="CENTER" wrappingWidth="90.13671875" GridPane.rowIndex="4" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Machine ID" textAlignment="CENTER" wrappingWidth="126.13671875" GridPane.rowIndex="5" />
-            <TextField disable="true" text="Auto Gen- Disabled" GridPane.columnIndex="1">
+            <TextField fx:id="IdAutoGenTXT" disable="true" text="Auto Gen- Disabled" GridPane.columnIndex="1">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -55,9 +50,15 @@
             <TextField fx:id="addPartInvtxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="addPartPricetxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="addPartMaxtxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="addPartMachineIdtxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="addPartTypetxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Min" textAlignment="CENTER" wrappingWidth="58.47265625" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <TextField fx:id="addPartMintxt" prefHeight="25.0" prefWidth="54.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Label prefHeight="17.0" prefWidth="50.0" text="Name" GridPane.rowIndex="1" />
+            <Label text="Inv" GridPane.rowIndex="2" />
+            <Label text="Price/Cost" GridPane.rowIndex="3" />
+            <Label text="Max" GridPane.rowIndex="4" />
+            <Label fx:id="dynamiclbl" text="Machine ID" GridPane.rowIndex="5" />
+            <Label text="ID" />
          </children>
       </GridPane>
       <Button layoutX="297.0" layoutY="281.0" mnemonicParsing="false" onAction="#OnActionSave" text="Save" />

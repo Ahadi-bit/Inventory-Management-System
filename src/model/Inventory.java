@@ -54,15 +54,11 @@ public class Inventory {
         return null;
     }
     public static void updatePart(int index, Part selectedPart){
-        Part existingPart = Inventory.lookupPart(index);
-        Inventory.deletePart(existingPart);
-        Inventory.addPart(selectedPart);
+
     }
 
     public  static void updateProduct(int index, Product selectedProduct){
-        Product existingPart = Inventory.lookupProduct(index);
-        Inventory.deleteProduct(existingPart);
-        Inventory.addProduct(selectedProduct);
+
     }
 
     public static boolean deletePart(Part selectedPart){
@@ -71,7 +67,7 @@ public class Inventory {
     }
 
     public static boolean deleteProduct(Product selectedProduct){
-        allParts.remove(selectedProduct);
+        allProducts.remove(selectedProduct);
         return true;
     }
 
