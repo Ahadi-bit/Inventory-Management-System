@@ -20,7 +20,7 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <RadioButton fx:id="inHousebtn" layoutX="170.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#OnClickInHouse" prefHeight="17.0" prefWidth="80.0" text="In-House">
+      <RadioButton fx:id="inHousebtn" layoutX="170.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#OnClickInHouse" prefHeight="17.0" prefWidth="80.0" selected="true" text="In-House">
          <toggleGroup>
             <ToggleGroup fx:id="partType" />
          </toggleGroup></RadioButton>

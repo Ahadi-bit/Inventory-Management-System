@@ -46,15 +46,15 @@
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inv" textAlignment="CENTER" wrappingWidth="86.13671875" GridPane.rowIndex="2" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price/Cost" textAlignment="CENTER" wrappingWidth="123.13671875" GridPane.rowIndex="3" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Max" textAlignment="CENTER" wrappingWidth="90.13671875" GridPane.rowIndex="4" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Machine ID" textAlignment="CENTER" wrappingWidth="126.13671875" GridPane.rowIndex="5" />
-                <TextField disable="true" GridPane.columnIndex="1" />
-                <TextField fx:id="modifyPart" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="modifyPartInvtxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="modifyPartPricetxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="modifyPartMaxtxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <TextField fx:id="modifyPartMachineIdtxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Text fx:id="dynamiclbl" strokeType="OUTSIDE" strokeWidth="0.0" text="Machine ID" textAlignment="CENTER" wrappingWidth="126.13671875" GridPane.rowIndex="5" />
+                <TextField fx:id="PartIdxt" disable="true" GridPane.columnIndex="1" />
+                <TextField fx:id="partNametxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="partInvtxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="pricetxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="maxtxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="dynamictxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Min" textAlignment="CENTER" wrappingWidth="58.47265625" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                <TextField fx:id="modifyPartMintxt" prefHeight="25.0" prefWidth="54.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                <TextField fx:id="mintxt" prefHeight="25.0" prefWidth="54.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             </children>
         </GridPane>
         <Button layoutX="297.0" layoutY="281.0" mnemonicParsing="false" onAction="#OnActionSave" text="Save" />

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class AddPartForm{
 
@@ -58,7 +59,7 @@ public class AddPartForm{
 
 
     @FXML
-    void OnActionCancel(ActionEvent event) throws IOException {
+    public void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
         stage.setScene(new Scene(scene));
@@ -68,14 +69,10 @@ public class AddPartForm{
 
 
     @FXML
-    void OnActionSave(ActionEvent event) throws IOException{
-        String partName = addPartNametxt.getText();
-        int stock = Integer.parseInt(addPartInvtxt.getText());
-        double price = Double.parseDouble(addPartPricetxt.getText());
-        int max = Integer.parseInt(addPartMaxtxt.getText());
-        int min = Integer.parseInt(addPartMintxt.getText());
+    private void OnActionSave(ActionEvent event) throws IOException{
 
         Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle("error");
 
         int counter = 1;
         int id = 1;
@@ -87,70 +84,88 @@ public class AddPartForm{
             counter++;
         }
         id = counter;
-        /** Exception handling for min and mix  **/
-        try{
-            if(min<=max){
-                /** Exception handling for unselected part type  **/
-                try{
-                    if(partType.getSelectedToggle().equals(inHousebtn)){
-                        /** Exception handling for In-house entry**/
-                        try{
-                            int machineId = Integer.parseInt(addPartTypetxt.getText());
-                            Part newItem = new InHouse(id,partName,price,stock,min,max,machineId);
 
-                            inv.addPart(newItem);
+        if(partType.getSelectedToggle().equals(inHousebtn)){
 
-                            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-                            scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
-                            stage.setScene(new Scene(scene));
-                            stage.show();
-                        }
-                        catch (Exception e){
-                            error.show();
-                            error.setTitle("Problem!");
-                            error.setContentText("Invalid Entry please try again:"+ e.getMessage());
-                        }
+            try {
+                String partName = addPartNametxt.getText().trim();
+                int stock = Integer.parseInt(addPartInvtxt.getText().trim());
+                double price = Double.parseDouble(addPartPricetxt.getText().trim());
+                int max = Integer.parseInt(addPartMaxtxt.getText().trim());
+                int min = Integer.parseInt(addPartMintxt.getText().trim());
+                int machineId = Integer.parseInt(addPartTypetxt.getText());
+                Part newItem = new InHouse(id,partName,price,stock,min,max,machineId);
 
-                    }
-                    else if(partType.getSelectedToggle().equals(outSourcedbtn)){
-                        /** Exception handling for Out-Source entry**/
-                        try{
-                            String CompanyName = addPartInvtxt.getText();
-                            Part newItem = new Outsourced(id,partName,price,stock,min,max,CompanyName);
-
-                            inv.addPart(newItem);
-
-                            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-                            scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
-                            stage.setScene(new Scene(scene));
-                            stage.show();
-                        }
-                        catch(Exception e){
-                            error.show();
-                            error.setTitle("Problem!");
-                            error.setContentText("Invalid Entry please try again:"+ e.getMessage());
-                        }
-
-                    }
-
-                }
-                catch (Exception e){
+                if(partName.isEmpty()){
+                    error.setContentText("empty!");
                     error.show();
-                    error.setTitle("Problem!");
-                    error.setContentText("Radio button not selected");
+                    return;
                 }
+                else if(min>max){
+                    error.setContentText("Min cannot be greater than Max");
+                    error.show();
+                    return;
+                }
+                else if(stock > max || stock < min){
+                    error.setContentText("stock must be between min and max");
+                    error.show();
+                    return;
+                }
+                else{
 
+                    inv.addPart(newItem);
+                    scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
+                    stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(scene));
+                    stage.show();
+                }
+            }catch (Exception e){
+                error.setContentText("Invalid Entry");
+                error.show();
+                return;
             }
-            else{
-                throw new Exception();
+
+        }
+        else if(partType.getSelectedToggle().equals(outSourcedbtn)) {
+            try {
+                String partName = addPartNametxt.getText().trim();
+                int stock = Integer.parseInt(addPartInvtxt.getText().trim());
+                double price = Double.parseDouble(addPartPricetxt.getText().trim());
+                int max = Integer.parseInt(addPartMaxtxt.getText().trim());
+                int min = Integer.parseInt(addPartMintxt.getText().trim());
+                String CompanyName = addPartInvtxt.getText();
+                Part newItem = new Outsourced(id,partName,price,stock,min,max,CompanyName);
+
+                if(partName.isEmpty()){
+                    error.setContentText("empty part name");
+                    error.show();
+                    return;
+                }
+                else if(min>max){
+                    error.setContentText("Min cannot be greater than Max");
+                    error.show();
+                    return;
+                }
+                else if(stock > max || stock < min){
+                    error.setContentText("stock must be between min and max");
+                    error.show();
+                    return;
+                }
+                else{
+
+                    inv.addPart(newItem);
+                    scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
+                    stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(scene));
+                    stage.show();
+                }
+            }catch (Exception e){
+                error.setContentText("Invalid Entry");
+                error.show();
+                return;
             }
-        }
-        catch (Exception e){
-            error.show();
-            error.setTitle("Problem!");
-            error.setContentText("your min is greater than your max!");
-        }
 
-
+        }
     }
 }
+

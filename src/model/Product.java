@@ -21,11 +21,11 @@ public class Product {
         this.min = min;
     }
 
-    public static ObservableList<Part> getAssociatedParts() {
+    public ObservableList<Part> getAllAssociatedParts(){
         return associatedParts;
     }
 
-    public static void setAssociatedParts(ObservableList<Part> associatedParts) {
+    public void setAssociatedParts(ObservableList<Part> associatedParts) {
         Product.associatedParts = associatedParts;
     }
 
@@ -77,13 +77,23 @@ public class Product {
         this.min = min;
     }
 
-    public static void addAssociatedPart(Part part){ associatedParts.add(part);}
+    public void addAssociatedPart(Part part){ associatedParts.add(part);}
 
-    public static void deleteAssociatedPart(Part part){ associatedParts.remove(part);}
-
-    public static ObservableList<Part> getAllAssociatedParts(){
-        return associatedParts;
+    public Part lookupAssociatedPart(int partassociated){
+        for(int i=0; i<associatedParts.size(); i++){
+            if(associatedParts.get(i).getId() == partassociated){
+                return associatedParts.get(i);
+            }
+        }
+        return null;
     }
 
-
+    public boolean deleteAssociatedPart(Part selectedAssociatedPart){
+        for(Part part : Inventory.getAllParts()){
+            if(part.getId() == selectedAssociatedPart.getId()){
+                return Inventory.getAllParts().remove(selectedAssociatedPart);
+            }
+        }
+        return false;
+    }
 }

@@ -108,19 +108,58 @@ public class MainForm implements Initializable {
 
     @FXML
     void OnActionModifyParts(ActionEvent event) throws IOException{
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/ModifyPartForm.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+
+        boolean ifNotSelected = partsTable.getSelectionModel().isEmpty();
+
+        if(ifNotSelected)
+
+        if(ifNotSelected){
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("error");
+            error.setContentText("No item selected");
+            error.show();
+        }
+        else{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/ModifyPartForm.fxml"));
+            loader.load();
+            ModifyPartForm MDFController = loader.getController();
+            MDFController.sendSelectedItem(partsTable.getSelectionModel().getSelectedItem());
+
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     @FXML
     void OnActionModifyProducts(ActionEvent event) throws IOException{
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/ModifyProductForm.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
 
+        boolean ifNotSelected = productsTable.getSelectionModel().isEmpty();
+
+        if(ifNotSelected){
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("error");
+            error.setContentText("No item selected");
+            error.show();
+        }
+        else{
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/ModifyProductForm.fxml"));
+            loader.load();
+            ModifyProductForm MDFController = loader.getController();
+            MDFController.sendSelectedItem(productsTable.getSelectionModel().getSelectedItem());
+
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        }
     }
 
     @Override
@@ -136,5 +175,7 @@ public class MainForm implements Initializable {
         ProductNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         productInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPerUnitCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+
     }
 }
