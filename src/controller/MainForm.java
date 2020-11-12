@@ -111,8 +111,6 @@ public class MainForm implements Initializable {
 
         boolean ifNotSelected = partsTable.getSelectionModel().isEmpty();
 
-        if(ifNotSelected)
-
         if(ifNotSelected){
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("error");
@@ -132,6 +130,7 @@ public class MainForm implements Initializable {
             stage.setScene(new Scene(scene));
             stage.show();
         }
+
     }
 
     @FXML

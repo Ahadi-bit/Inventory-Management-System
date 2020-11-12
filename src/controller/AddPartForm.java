@@ -30,7 +30,6 @@ public class AddPartForm{
     @FXML private RadioButton inHousebtn;
     @FXML private ToggleGroup partType;
     @FXML private RadioButton outSourcedbtn;
-    @FXML private TextField IdAutoGenTXT;
     @FXML private TextField addPartNametxt;
     @FXML private TextField addPartInvtxt;
     @FXML private TextField addPartPricetxt;

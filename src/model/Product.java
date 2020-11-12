@@ -79,15 +79,6 @@ public class Product {
 
     public void addAssociatedPart(Part part){ associatedParts.add(part);}
 
-    public Part lookupAssociatedPart(int partassociated){
-        for(int i=0; i<associatedParts.size(); i++){
-            if(associatedParts.get(i).getId() == partassociated){
-                return associatedParts.get(i);
-            }
-        }
-        return null;
-    }
-
     public boolean deleteAssociatedPart(Part selectedAssociatedPart){
         for(Part part : Inventory.getAllParts()){
             if(part.getId() == selectedAssociatedPart.getId()){

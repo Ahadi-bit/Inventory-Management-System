@@ -7,8 +7,7 @@ import javafx.collections.ObservableList;
 public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
-    public static Part selectedPart;
-    public static Product selectedProduct;
+
 
 
     public static void addPart(Part newPart){
@@ -69,19 +68,20 @@ public class Inventory {
     }
 
 
-    public static void updatePart(int index, Part selectedPart){
+    public static void updatePart(Part selectedPart){
         for(int i = 0; i<allParts.size(); i++){
             if(allParts.get(i).getId() == selectedPart.getId()){
                 allParts.set(i,selectedPart);
+                break;
 
             }
         }
     }
-    public  static void updateProduct(int index, Product selectedProduct){
+    public  static void updateProduct(Product selectedProduct){
         for(int i = 0; i<allProducts.size(); i++){
             if(allProducts.get(i).getId() == selectedProduct.getId()){
                 allProducts.set(i,selectedProduct);
-
+                break;
             }
         }
 
