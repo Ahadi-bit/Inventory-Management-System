@@ -10,12 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.InHouse;
 import model.Inventory;
 import model.Part;
 import model.Product;
@@ -76,6 +74,7 @@ public class ModifyProductForm  implements Initializable {
     @FXML
     private TableColumn<Part, Double> AssociatedPriceCol;
 
+
     @FXML
     private TextField searchtxt;
 
@@ -124,6 +123,45 @@ public class ModifyProductForm  implements Initializable {
 
     @FXML
     void OnActionSave(ActionEvent event) {
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle("error");
+        try {
+            String partName = Nametxt.getText();
+            int id = Integer.parseInt(idtxt.getText().trim());
+            int stock = Integer.parseInt(Invtxt.getText().trim());
+            double price = Double.parseDouble(Pricetxt.getText().trim());
+            int max = Integer.parseInt(Maxtxt.getText().trim());
+            int min = Integer.parseInt(mintxt.getText().trim());
+            Product newItem = new Product(id,partName,price,stock,min,max);
+
+            if(partName.isEmpty()){
+                error.setContentText("empty!");
+                error.show();
+                return;
+            }
+            else if(min>max){
+                error.setContentText("Min cannot be greater than Max");
+                error.show();
+                return;
+            }
+            else if(stock > max || stock < min){
+                error.setContentText("stock must be between min and max");
+                error.show();
+                return;
+            }
+            else{
+
+                Inventory.updateProduct(newItem);
+                scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+        }catch (Exception e){
+            error.setContentText("Invalid Entry");
+            error.show();
+            return;
+        }
 
     }
 
