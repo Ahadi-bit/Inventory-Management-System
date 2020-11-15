@@ -21,12 +21,20 @@ import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
 public class ModifyProductForm  implements Initializable {
     Stage stage;
     Parent scene;
+
+    private Product selectProduct;
+    private Inventory inv;
+
+
+
+
     @FXML
     private TextField idtxt;
     @FXML
@@ -81,12 +89,15 @@ public class ModifyProductForm  implements Initializable {
 
 
 
-
     @FXML
     void OnActionAdd(ActionEvent event) {
 
     }
-    private ObservableList<Part> assocPartList = FXCollections.observableArrayList();
+    private ObservableList<Part> associatedList = FXCollections.observableArrayList();
+    private ObservableList<Part>  allPartsList= FXCollections.observableArrayList();
+    private ObservableList<Part> searchList = FXCollections.observableArrayList();
+
+
 
 
     public void sendSelectedItem(Product product){
@@ -97,8 +108,8 @@ public class ModifyProductForm  implements Initializable {
         Maxtxt.setText(String.valueOf(product.getMax()));
         mintxt.setText(String.valueOf(product.getMin()));
 
-        assocPartList.setAll(product.getAllAssociatedParts());
-        associatedPartsTable.setItems(assocPartList);
+        associatedList.setAll(product.getAllAssociatedParts());
+        associatedPartsTable.setItems(associatedList);
 
         associatedPartIDcol.setCellValueFactory(new PropertyValueFactory<>("id"));
         associatedPartNamecol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -106,6 +117,7 @@ public class ModifyProductForm  implements Initializable {
         AssociatedPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
+
 
 
     @FXML
@@ -118,7 +130,14 @@ public class ModifyProductForm  implements Initializable {
 
     @FXML
     void OnActionRemoveAssociated(ActionEvent event) {
-
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
+        alert.setTitle("Confirm");
+        if(associatedPartsTable.getSelectionModel().getSelectedItem() != null){
+            Optional<ButtonType> result = alert.showAndWait();
+            if(((Optional<?>)result).isPresent() && result.get() == ButtonType.OK){
+                associatedList.remove(associatedPartsTable.getSelectionModel().getSelectedItem());
+            }
+        }
     }
 
     @FXML

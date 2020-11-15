@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddProductForm implements Initializable {
@@ -74,6 +77,8 @@ public class AddProductForm implements Initializable {
     @FXML
     private TextField Searchtxt;
 
+    private ObservableList<Part> associatedList = FXCollections.observableArrayList();
+
 
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
@@ -85,7 +90,16 @@ public class AddProductForm implements Initializable {
 
     @FXML
     void OnActionRemoveAssociatedPart(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
+        alert.setTitle("Confirm");
+        if(associatedPartsTable.getSelectionModel().getSelectedItem() != null){
+            Optional<ButtonType> result = alert.showAndWait();
+            if(((Optional<?>)result).isPresent() && result.get() == ButtonType.OK){
+                associatedList.remove(associatedPartsTable.getSelectionModel().getSelectedItem());
+                associatedPartsTable.refresh();
 
+            }
+        }
     }
 
     @FXML
@@ -144,6 +158,11 @@ public class AddProductForm implements Initializable {
     }
 
     public void OnActionAddItem(ActionEvent actionEvent) {
+        Part selectedItem = allPartsTable.getSelectionModel().getSelectedItem();
+
+        associatedList.add(selectedItem);
+        associatedPartsTable.setItems(associatedList);
+
     }
 
     @Override
@@ -154,6 +173,11 @@ public class AddProductForm implements Initializable {
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partIventoryLevelCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        associatedPartICol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        associatedPartNamecol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        associatedInvLvlcol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        AssociatedPricecol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
 
     }
