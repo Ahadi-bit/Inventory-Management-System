@@ -77,6 +77,7 @@ public class Inventory {
             }
         }
     }
+
     public  static void updateProduct(Product selectedProduct){
         for(int i = 0; i<allProducts.size(); i++){
             if(allProducts.get(i).getId() == selectedProduct.getId()){

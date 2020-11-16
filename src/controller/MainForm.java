@@ -25,7 +25,6 @@ public class MainForm implements Initializable {
 
     Stage stage;
     Parent scene;
-    Inventory inv = new Inventory();
 
     @FXML
     private TableView<Part> partsTable;
@@ -148,14 +147,13 @@ public class MainForm implements Initializable {
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/ModifyProductForm.fxml"));
-            loader.load();
+            Parent root = loader.load();
             ModifyProductForm MDFController = loader.getController();
             MDFController.sendSelectedItem(productsTable.getSelectionModel().getSelectedItem());
 
-
+            Scene scene = new Scene(root);
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            Parent scene = loader.getRoot();
-            stage.setScene(new Scene(scene));
+            stage.setScene(scene);
             stage.show();
 
         }

@@ -155,6 +155,7 @@ public class AddProductForm implements Initializable {
                 }
                 Inventory.addProduct(newItem);
 
+
                 scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(scene));
@@ -170,13 +171,24 @@ public class AddProductForm implements Initializable {
 
     public void OnActionAddItem(ActionEvent actionEvent) {
         Part selectedItem = allPartsTable.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to Add?");
+        alert.setTitle("Confirm");
 
-        associatedList.add(selectedItem);
-        associatedPartsTable.setItems(associatedList);
+        if(allPartsTable.getSelectionModel().getSelectedItem() != null){
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get() == ButtonType.OK){
+                associatedList.add(selectedItem);
+                associatedPartsTable.setItems(associatedList);
 
-        allPartsList.remove(selectedItem);
-        allPartsTable.refresh();
-
+                allPartsList.remove(selectedItem);
+                allPartsTable.refresh();
+            }
+        }
+        else{
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Nothing Selected");
+            error.show();
+        }
 
     }
 

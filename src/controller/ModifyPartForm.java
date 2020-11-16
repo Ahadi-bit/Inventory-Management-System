@@ -109,7 +109,7 @@ public class ModifyPartForm implements Initializable {
                 int max = Integer.parseInt(maxtxt.getText().trim());
                 int min = Integer.parseInt(mintxt.getText().trim());
                 int machineId = Integer.parseInt(dynamictxt.getText());
-                Part newItem = new InHouse(id,partName,price,stock,min,max,machineId);
+                Part ModifiedItem = new InHouse(id,partName,price,stock,min,max,machineId);
 
                 if(partName.isEmpty()){
                     error.setContentText("empty!");
@@ -128,7 +128,8 @@ public class ModifyPartForm implements Initializable {
                 }
                 else{
 
-                    inv.updatePart(newItem);
+
+                    inv.updatePart(ModifiedItem);
                     scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
                     stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                     stage.setScene(new Scene(scene));
