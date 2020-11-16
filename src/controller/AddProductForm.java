@@ -78,6 +78,7 @@ public class AddProductForm implements Initializable {
     private TextField Searchtxt;
 
     private ObservableList<Part> associatedList = FXCollections.observableArrayList();
+    private ObservableList<Part> allPartsList = FXCollections.observableArrayList();
 
 
     @FXML
@@ -91,14 +92,20 @@ public class AddProductForm implements Initializable {
     @FXML
     void OnActionRemoveAssociatedPart(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
+        Alert error = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Confirm");
         if(associatedPartsTable.getSelectionModel().getSelectedItem() != null){
+
             Optional<ButtonType> result = alert.showAndWait();
             if(((Optional<?>)result).isPresent() && result.get() == ButtonType.OK){
                 associatedList.remove(associatedPartsTable.getSelectionModel().getSelectedItem());
                 associatedPartsTable.refresh();
 
             }
+        }
+        else{
+            error.setContentText("Nothing Selected");
+            error.show();
         }
     }
 
@@ -143,7 +150,11 @@ public class AddProductForm implements Initializable {
             }
             else{
 
+                for(Part parts: associatedList){
+                    newItem.addAssociatedPart(parts);
+                }
                 Inventory.addProduct(newItem);
+
                 scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(scene));
@@ -163,16 +174,22 @@ public class AddProductForm implements Initializable {
         associatedList.add(selectedItem);
         associatedPartsTable.setItems(associatedList);
 
+        allPartsList.remove(selectedItem);
+        allPartsTable.refresh();
+
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        allPartsTable.setItems(Inventory.getAllParts());
+        allPartsList.setAll(Inventory.getAllParts());
+        allPartsTable.setItems(allPartsList);
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partIventoryLevelCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+
 
         associatedPartICol.setCellValueFactory(new PropertyValueFactory<>("id"));
         associatedPartNamecol.setCellValueFactory(new PropertyValueFactory<>("name"));
