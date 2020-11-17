@@ -56,6 +56,12 @@ public class MainForm implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPerUnitCol;
 
+    @FXML
+    private TextField searchProducttxt;
+
+    @FXML
+    private TextField searchParttxt;
+
 
 
 
@@ -172,7 +178,18 @@ public class MainForm implements Initializable {
         ProductNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         productInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPerUnitCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+    }
 
+    @FXML
+    void OnActionSearchParts(ActionEvent event) {
+        ObservableList searchedParts = Inventory.lookupPart(searchParttxt.getText());
+        if(!searchParttxt.getText().trim().isEmpty()){
+            partsTable.setItems(searchedParts);
+        }
+    }
+
+    @FXML
+    void OnActionSearchProducts(ActionEvent event) {
 
     }
 }

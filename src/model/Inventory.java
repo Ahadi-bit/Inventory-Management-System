@@ -35,13 +35,27 @@ public class Inventory {
 
 
     public static Part lookupPart(int partid){
-        for(Part searchedpart: allParts){
-            if(searchedpart.getId() == partid){
-                return searchedpart;
+        if(!allParts.isEmpty()){
+            for(int i = 0; i<allParts.size(); i++){
+                if(allParts.get(i).getId() == partid){
+                    return allParts.get(i);
+                }
             }
         }
         return null;
     }
+    public static ObservableList<Part> lookupPart(String partName){
+        ObservableList<Part> searchedPart = FXCollections.observableArrayList();
+        for(Part part:allParts){
+            if(part.getName().contains(partName)){
+                searchedPart.add(part);
+            }
+        }
+        return searchedPart;
+    }
+
+
+
     public static Product lookupProduct(int productid){
         for(Product searchedProd: allProducts){
             if(searchedProd.getId() == productid){
@@ -50,14 +64,7 @@ public class Inventory {
         }
         return null;
     }
-    public static ObservableList<Part> lookupPart(String partName){
-        for(Part part:allParts){
-            if(part.getName().toLowerCase().equals(partName.toLowerCase())){
-                return (ObservableList<Part>) part;
-            }
-        }
-        return null;
-    }
+
     public  static ObservableList<Product> lookupProduct(String productName){
         for(Product product:allProducts){
             if(product.getName().toLowerCase().equals(productName.toLowerCase())){
