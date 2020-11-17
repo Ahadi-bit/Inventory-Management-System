@@ -7,7 +7,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
 
+
+/** Main class runs the mainScreen Controller**/
 public class Main extends Application {
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Inventory inv = new Inventory();
@@ -20,17 +24,15 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    @Override
-    public void stop(){
-        System.out.println("Terminated!!!");
-    }
-
-
+    /** This is the Main method. */
     public static void main(String[] args) {
         launch(args);
     }
-
-    void addTestData(Inventory inv){
+    /** This method populates populates the Parts and product.
+     This adds the initial data in the Parts and Product table views when application in ran.
+     @param inv This passes the Inventory model so new data can be passed
+     */
+    public void addTestData(Inventory inv){
         //Add InHouse Parts
         Part a1 = new InHouse(1, "Part A1", 2.99, 10, 5, 100, 101);
         Part a2 = new InHouse(3, "Part A2", 4.99, 11, 5, 100, 103);
