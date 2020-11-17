@@ -87,7 +87,7 @@ public class MainForm implements Initializable {
         alert.setTitle("Confirm");
         if(partsTable.getSelectionModel().getSelectedItem() != null){
             Optional<ButtonType> result = alert.showAndWait();
-            if(((Optional<?>)result).isPresent() && result.get() == ButtonType.OK){
+            if( result.get() == ButtonType.OK){
                 Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
             }
         }
@@ -100,7 +100,7 @@ public class MainForm implements Initializable {
         alert.setTitle("Confirm");
         if(productsTable.getSelectionModel().getSelectedItem() != null){
             Optional<ButtonType> result = alert.showAndWait();
-            if(((Optional<?>)result).isPresent() && result.get() == ButtonType.OK){
+            if(result.get() == ButtonType.OK){
                 Inventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
             }
         }
@@ -190,6 +190,9 @@ public class MainForm implements Initializable {
 
     @FXML
     void OnActionSearchProducts(ActionEvent event) {
-
+        ObservableList searchedProd = Inventory.lookupPart(searchProducttxt.getText());
+        if(!searchProducttxt.getText().trim().isEmpty()){
+            productsTable.setItems(searchedProd);
+        }
     }
 }

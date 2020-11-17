@@ -57,9 +57,11 @@ public class Inventory {
 
 
     public static Product lookupProduct(int productid){
-        for(Product searchedProd: allProducts){
-            if(searchedProd.getId() == productid){
-                return searchedProd;
+        if(!allProducts.isEmpty()){
+            for(int i = 0; i<allProducts.size(); i++){
+                if(allProducts.get(i).getId() == productid){
+                    return allProducts.get(i);
+                }
             }
         }
         return null;
