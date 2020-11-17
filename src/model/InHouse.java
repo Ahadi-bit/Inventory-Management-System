@@ -1,5 +1,13 @@
 package model;
 
+/**
+ *  InHouse.java model
+ */
+
+/**
+ *
+ * @author Jonathan Payarers
+ */
 public class InHouse extends Part {
     private int MachineId;
 
@@ -8,10 +16,15 @@ public class InHouse extends Part {
         this.MachineId = MachineId;
     }
 
+    /**
+     * @return the companyName
+     */
     public int getMachineId() {
         return MachineId;
     }
-
+    /**
+     * @param  machineId The machineId to set
+     */
     public void setMachineId(int machineId) {
         MachineId = machineId;
     }

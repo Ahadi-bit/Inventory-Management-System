@@ -3,11 +3,9 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.InHouse;
@@ -16,10 +14,9 @@ import model.Outsourced;
 import model.Part;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ModifyPartForm implements Initializable {
+
+public class ModifyPartForm{
     Stage stage;
     Parent scene;
 
@@ -57,7 +54,7 @@ public class ModifyPartForm implements Initializable {
     @FXML
     private Text dynamiclbl;
 
-
+    /** This method grabs the selected item to be modified*/
     public void sendSelectedItem(Part part){
         PartIdxt.setText(String.valueOf(part.getId()));
         partNametxt.setText(part.getName());
@@ -79,7 +76,6 @@ public class ModifyPartForm implements Initializable {
         }
 
     }
-
 
 
     @FXML
@@ -188,8 +184,4 @@ public class ModifyPartForm implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 }

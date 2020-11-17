@@ -4,7 +4,6 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -14,18 +13,13 @@ import model.InHouse;
 import model.Inventory;
 import model.Outsourced;
 import model.Part;
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.Random;
-import java.util.ResourceBundle;
-import java.util.regex.Pattern;
+
 
 public class AddPartForm{
 
     Stage stage;
     Parent scene;
-    Random rand = new Random();
 
     @FXML private RadioButton inHousebtn;
     @FXML private ToggleGroup partType;
@@ -39,36 +33,27 @@ public class AddPartForm{
     @FXML private Label dynamiclbl;
 
 
-    /** Changes dynamiclbl to In-House**/
+    /** Changes dynamiclbl to In-House.*/
     @FXML
-    void OnClickInHouse(MouseEvent event) {
+    private void OnClickInHouse(MouseEvent event) {
         this.dynamiclbl.setText("Machine ID");
         System.out.println("in house btn");
     }
 
-    /** Changes dynamiclbl to Out-Source**/
+    /** Changes dynamiclbl to Out-Source. */
     @FXML
-    void OnClickOutSource(MouseEvent event) {
+    private void OnClickOutSource(MouseEvent event) {
         this.dynamiclbl.setText("Company Name");
         System.out.println("Outsourced");
     }
 
-
-
-
-
+    /** This saves the item.
+     This method adds the items to the parts list which is then displayed on the partsTableView.
+     Here you will also find the validation for the items. I was also getting a runtime error which was caused by invalid datatypes
+     trying to be passed so I added a try catch to validate those errors.
+     * */
     @FXML
-    public void OnActionCancel(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
-    }
-
-
-
-    @FXML
-    private void OnActionSave(ActionEvent event) throws IOException{
+    private void OnActionSave(ActionEvent event){
 
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("error");
@@ -166,5 +151,16 @@ public class AddPartForm{
 
         }
     }
+
+    /** This method cancels this scene and takes you back to the Mainscreen. */
+    @FXML
+    private void OnActionCancel(ActionEvent event) throws IOException {
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+
 }
 

@@ -1,5 +1,12 @@
 package controller;
+/**
+ * Main Controller
+ */
 
+/**
+ *
+ * @author Jonathan Payarers
+ */
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +28,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MainForm implements Initializable {
+public class MainController implements Initializable {
 
     Stage stage;
     Parent scene;

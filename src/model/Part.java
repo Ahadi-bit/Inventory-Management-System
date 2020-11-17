@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author Place Your Name Here
+ * @author Jonathan Payarers
  */
 public abstract class Part {
     private int id;

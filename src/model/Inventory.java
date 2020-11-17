@@ -1,10 +1,20 @@
 package model;
 
+/**
+ * Inventory Model
+ */
+
+/**
+ *
+ * @author Jonathan Payarers
+ */
+
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Inventory {
+
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
@@ -79,7 +89,6 @@ public class Inventory {
             }
         }
     }
-
     public  static void updateProduct(Product selectedProduct){
         for(int i = 0; i<allProducts.size(); i++){
             if(allProducts.get(i).getId() == selectedProduct.getId()){
