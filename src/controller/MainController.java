@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -69,7 +70,11 @@ public class MainController implements Initializable {
     @FXML
     private TextField searchParttxt;
 
+    Inventory inv;
 
+//    public MainController(Inventory inv) {
+//        this.inv = inv;
+//    }
 
 
     @FXML
@@ -129,27 +134,26 @@ public class MainController implements Initializable {
             error.setContentText("No item selected");
             error.show();
         }
-        else{
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/ModifyPartForm.fxml"));
-            loader.load();
-            ModifyPartForm MDFController = loader.getController();
-            MDFController.sendSelectedItem(partsTable.getSelectionModel().getSelectedItem());
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/ModifyPartForm.fxml"));
+        loader.load();
+        ModifyPartForm MDFController = loader.getController();
+        MDFController.sendSelectedItem(partsTable.getSelectionModel().getSelectedItem());
 
 
-            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            Parent scene = loader.getRoot();
-            stage.setScene(new Scene(scene));
-            stage.show();
-        }
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
+        stage.show();
+
 
     }
 
     @FXML
-    void OnActionModifyProducts(ActionEvent event) throws IOException{
+    public void OnActionModifyProducts(ActionEvent event) throws IOException{
 
         boolean ifNotSelected = productsTable.getSelectionModel().isEmpty();
-
         if(ifNotSelected){
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("error");
@@ -162,7 +166,7 @@ public class MainController implements Initializable {
             loader.setLocation(getClass().getResource("/view/ModifyProductForm.fxml"));
             Parent root = loader.load();
             ModifyProductForm MDFController = loader.getController();
-            MDFController.sendSelectedItem(productsTable.getSelectionModel().getSelectedItem());
+            MDFController.sendSelectedItem(productsTable.getSelectionModel().getSelectedItem(),inv);
 
             Scene scene = new Scene(root);
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -170,6 +174,9 @@ public class MainController implements Initializable {
             stage.show();
 
         }
+
+
+
     }
 
     @Override

@@ -27,6 +27,9 @@ public class ModifyProductForm  implements Initializable {
     Stage stage;
     Parent scene;
 
+    Product product;
+    Inventory inv;
+
     @FXML
     private TextField idtxt;
     @FXML
@@ -86,7 +89,9 @@ public class ModifyProductForm  implements Initializable {
     private ObservableList<Part>  allPartsList= FXCollections.observableArrayList();
     private ObservableList<Part> searchList = FXCollections.observableArrayList();
 
-    public void sendSelectedItem(Product product){
+
+
+    public void sendSelectedItem(Product product, Inventory inv){
         idtxt.setText(String.valueOf(product.getId()));
         Nametxt.setText(product.getName());
         Invtxt.setText(String.valueOf(product.getStock()));
@@ -96,8 +101,9 @@ public class ModifyProductForm  implements Initializable {
 
 
         /***  This is where I am having issues     ****/
-        associatedList = product.getAllAssociatedParts();
+        this.associatedList = product.getAllAssociatedParts();
         associatedPartsTable.setItems(associatedList);
+
     }
 
 
