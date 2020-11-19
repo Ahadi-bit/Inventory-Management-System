@@ -87,7 +87,6 @@ public class ModifyProductForm  implements Initializable {
 
     private ObservableList<Part> associatedList = FXCollections.observableArrayList();
     private ObservableList<Part>  allPartsList= FXCollections.observableArrayList();
-    private ObservableList<Part> searchList = FXCollections.observableArrayList();
 
 
 
@@ -219,5 +218,47 @@ public class ModifyProductForm  implements Initializable {
 
     }
 
+    @FXML
+    void OnActionSearch(ActionEvent event) {
+        ObservableList<Part> partToSearch = FXCollections.observableArrayList();
+        try{
+            int idToSearch = Integer.parseInt(searchtxt.getText());
+            if(Inventory.lookupPart(idToSearch) == null){
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Item does not exist");
+                error.showAndWait();
+                allPartsTable.setItems(Inventory.getAllParts());
+            }else {
+                partToSearch.add(Inventory.lookupPart(idToSearch));
+                if(partToSearch.size() == 0){
+                    Alert error = new Alert(Alert.AlertType.ERROR);
+                    error.setTitle("error");
+                    error.setContentText("Item is empty");
+                    error.show();
+                    allPartsTable.setItems(Inventory.getAllParts());
+
+                }else{
+                    allPartsTable.setItems(partToSearch);
+                    allPartsTable.refresh();
+                }
+            }
+
+        }catch (Exception e){
+            String nameToSearch = searchtxt.getText();
+            partToSearch = Inventory.lookupPart(nameToSearch);
+
+            if(partToSearch.size() == 0){
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setTitle("error");
+                error.setContentText("Item is empty");
+                error.show();
+                allPartsTable.setItems(Inventory.getAllParts());
+
+            }else{
+                allPartsTable.setItems(partToSearch);
+                allPartsTable.refresh();
+            }
+        }
+    }
 
 }
