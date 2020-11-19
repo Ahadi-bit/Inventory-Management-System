@@ -9,7 +9,6 @@ package model;
  * @author Jonathan Payarers
  */
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,6 +16,9 @@ public class Inventory {
 
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
+    private static ObservableList<Part> partToSearch = FXCollections.observableArrayList();
+    private static ObservableList<Product> productToSearch = FXCollections.observableArrayList();
+
 
 
 
@@ -45,38 +47,38 @@ public class Inventory {
 
 
     public static Part lookupPart(int partid){
-        for(Part searchedpart: allParts){
-            if(searchedpart.getId() == partid){
-                return searchedpart;
+        for(int i=0; i< allParts.size();i++){
+            if(allParts.get(i).getId() == partid){
+                return allParts.get(i);
             }
         }
         return null;
     }
     public static Product lookupProduct(int productid){
-        if(!allProducts.isEmpty()){
-            for(int i = 0; i<allProducts.size(); i++){
-                if(allProducts.get(i).getId() == productid){
-                    return allProducts.get(i);
-                }
+        for(int i=0; i< allProducts.size();i++){
+            if(allProducts.get(i).getId() == productid){
+                return allProducts.get(i);
             }
         }
         return null;
     }
     public static ObservableList<Part> lookupPart(String partName){
-        for(Part part:allParts){
-            if(part.getName().toLowerCase().equals(partName.toLowerCase())){
-                return (ObservableList<Part>) part;
+        partToSearch.clear();
+        for(int i=0; i< allParts.size();i++){
+            if(allParts.get(i).getName().toLowerCase().equals(partName.toLowerCase())){
+                partToSearch.add(allParts.get(i));
             }
         }
-        return null;
+        return partToSearch;
     }
     public  static ObservableList<Product> lookupProduct(String productName){
-        for(Product product:allProducts){
-            if(product.getName().toLowerCase().equals(productName.toLowerCase())){
-                return (ObservableList<Product>) product;
+        productToSearch.clear();
+        for(int i=0; i< allProducts.size();i++){
+            if(allProducts.get(i).getName().toLowerCase().equals(productName.toLowerCase())){
+                productToSearch.add(allProducts.get(i));
             }
         }
-        return null;
+        return productToSearch;
     }
 
 
