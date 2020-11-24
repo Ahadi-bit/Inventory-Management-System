@@ -33,44 +33,32 @@ public class MainController implements Initializable {
     Stage stage;
     Parent scene;
 
-    @FXML
-    private TableView<Part> partsTable;
-    @FXML
-    private TableColumn<Part, Integer> PartIdCol;
-    @FXML
-    private TableColumn<Part, String> PartNameCol;
-    @FXML
-    private TableColumn<Part, Integer> InvLvlCol;
-    @FXML
-    private TableColumn<Part, Double> PartsPerUnitCol;
-    @FXML
-    private TableView<Product> productsTable;
-    @FXML
-    private TableColumn<Product, Integer> ProductIdCol;
-    @FXML
-    private TableColumn<Product, String> ProductNameCol;
-    @FXML
-    private TableColumn<Product, Integer> productInvLvlCol;
-    @FXML
-    private TableColumn<Product, Double> productPerUnitCol;
-    @FXML
-    private TextField SearchProdtxt;
-    @FXML
-    private TextField searchParttxt;
+    // Parts Pane
+    @FXML private TableView<Part> partsTable;
+    @FXML private TableColumn<Part, Integer> PartIdCol;
+    @FXML private TableColumn<Part, String> PartNameCol;
+    @FXML private TableColumn<Part, Integer> InvLvlCol;
+    @FXML private TableColumn<Part, Double> PartsPerUnitCol;
+    @FXML private TextField searchParttxt;
 
-    Inventory inv;
+    //Products Pane
+    @FXML private TableView<Product> productsTable;
+    @FXML private TableColumn<Product, Integer> ProductIdCol;
+    @FXML private TableColumn<Product, String> ProductNameCol;
+    @FXML private TableColumn<Product, Integer> productInvLvlCol;
+    @FXML private TableColumn<Product, Double> productPerUnitCol;
+    @FXML private TextField SearchProdtxt;
 
-
-    @FXML
-    void OnActionAddParts(ActionEvent event) throws IOException {
+    /** This method opens loads the appPartForm scene*/
+    @FXML void OnActionAddParts(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AddPartForm.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
 
-    @FXML
-    void OnActionAddProducts(ActionEvent event) throws IOException{
+    /** This method opens loads the appProductForm scene*/
+    @FXML void OnActionAddProducts(ActionEvent event) throws IOException{
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AddProductForm.fxml"));
         stage.setScene(new Scene(scene));
@@ -78,9 +66,9 @@ public class MainController implements Initializable {
     }
 
 
-
-    @FXML
-    void OnActionDeletePart(ActionEvent event) {
+    /**This method removes selected part.
+     * This method removes selected part from partsTable and will also remove the item from the inventory* */
+    @FXML void OnActionDeletePart(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
         alert.setTitle("Confirm");
         if(partsTable.getSelectionModel().getSelectedItem() != null){
@@ -92,8 +80,9 @@ public class MainController implements Initializable {
 
     }
 
-    @FXML
-    void OnActionDeleteProducts(ActionEvent event) {
+    /**This method removes selected Product.
+     * This method removes selected Product from productsTable and will also remove the item from the inventory* */
+    @FXML void OnActionDeleteProducts(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
         alert.setTitle("Confirm");
         if(productsTable.getSelectionModel().getSelectedItem() != null){
@@ -105,9 +94,9 @@ public class MainController implements Initializable {
     }
 
 
-
-    @FXML
-    void OnActionModifyParts(ActionEvent event) throws IOException{
+    /** This method opens the modify parts scene.
+     * This method also calls the sendSelectedItem method to populate txtfields.* */
+    @FXML public void OnActionModifyParts(ActionEvent event) throws IOException{
 
         boolean ifNotSelected = partsTable.getSelectionModel().isEmpty();
 
@@ -133,8 +122,9 @@ public class MainController implements Initializable {
 
     }
 
-    @FXML
-    public void OnActionModifyProducts(ActionEvent event) throws IOException{
+    /** This method opens the modify products scene.
+     * This method also calls the sendSelectedItem method to populate txtfields and associates parts table.* */
+    @FXML public void OnActionModifyProducts(ActionEvent event) throws IOException{
 
         boolean ifNotSelected = productsTable.getSelectionModel().isEmpty();
         if(ifNotSelected){
@@ -149,7 +139,7 @@ public class MainController implements Initializable {
             loader.setLocation(getClass().getResource("/view/ModifyProductForm.fxml"));
             Parent root = loader.load();
             ModifyProductForm MDFController = loader.getController();
-            MDFController.sendSelectedItem(productsTable.getSelectionModel().getSelectedItem(),inv);
+            MDFController.sendSelectedItem(productsTable.getSelectionModel().getSelectedItem());
 
             Scene scene = new Scene(root);
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -162,10 +152,8 @@ public class MainController implements Initializable {
 
     }
 
-
-
-    @FXML
-    void OnActionSearchParts(ActionEvent event) {
+    /** Search Functionality for Parts Table* */
+    @FXML public void OnActionSearchParts(ActionEvent event) {
         ObservableList<Part> partToSearch = FXCollections.observableArrayList();
             try{
                 int idToSearch = Integer.parseInt(searchParttxt.getText());
@@ -207,8 +195,8 @@ public class MainController implements Initializable {
             }
     }
 
-    @FXML
-    void OnActionSearchProd(ActionEvent event) {
+    /** Search Functionality for Products Table* */
+    @FXML public void OnActionSearchProd(ActionEvent event) {
         ObservableList<Product> productToSearch = FXCollections.observableArrayList();
         try{
             int idToSearch = Integer.parseInt(SearchProdtxt.getText());
@@ -250,15 +238,13 @@ public class MainController implements Initializable {
         }
     }
 
-
-
-    @FXML
-    void OnActionExit(ActionEvent event) {
+    /** Exits progra,*/
+    @FXML public void OnActionExit(ActionEvent event) {
         System.exit(0);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    /** Used to initialize the part and products table */
+    @Override public void initialize(URL url, ResourceBundle rb) {
         partsTable.setItems(Inventory.getAllParts());
         PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         PartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));

@@ -1,5 +1,12 @@
 package controller;
+/**
+ * Modify Part Form Controller
+ */
 
+/**
+ *
+ * @author Jonathan Payarers
+ */
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,38 +28,19 @@ public class ModifyPartForm{
     Parent scene;
 
 
-    @FXML
-    private RadioButton modifyPartInhousebtn;
+    @FXML private RadioButton modifyPartInhousebtn;
+    @FXML private ToggleGroup partType;
+    @FXML private RadioButton modifyPartOutSourcedbtn;
+    @FXML private TextField PartIdxt;
+    @FXML private TextField partNametxt;
+    @FXML private TextField partInvtxt;
+    @FXML private TextField pricetxt;
+    @FXML private TextField maxtxt;
+    @FXML private TextField dynamictxt;
+    @FXML private TextField mintxt;
+    @FXML private Text dynamiclbl;
 
-    @FXML
-    private ToggleGroup partType;
 
-    @FXML
-    private RadioButton modifyPartOutSourcedbtn;
-
-    @FXML
-    private TextField PartIdxt;
-
-    @FXML
-    private TextField partNametxt;
-
-    @FXML
-    private TextField partInvtxt;
-
-    @FXML
-    private TextField pricetxt;
-
-    @FXML
-    private TextField maxtxt;
-
-    @FXML
-    private TextField dynamictxt;
-
-    @FXML
-    private TextField mintxt;
-
-    @FXML
-    private Text dynamiclbl;
 
     /** This method grabs the selected item to be modified*/
     public void sendSelectedItem(Part part){
@@ -77,17 +65,20 @@ public class ModifyPartForm{
 
     }
 
-
-    @FXML
-    void OnActionCancel(ActionEvent event) throws IOException {
+    /** This method cancels this scene and takes you back to the Mainscreen. */
+    @FXML private void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
 
-    @FXML
-    void OnActionSave(ActionEvent event) {
+
+    /**This method updates the item for the selected item
+        This method also performs the same validation similar to the OnActionSave for the Addparts form.
+        With the exception of calling the update method instead of the add method
+     * */
+    @FXML private void OnActionSave(ActionEvent event) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("error");
 

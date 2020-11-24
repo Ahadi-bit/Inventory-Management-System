@@ -1,5 +1,12 @@
 package controller;
+/**
+ * Add Part Form Controller
+ */
 
+/**
+ *
+ * @author Jonathan Payarers
+ */
 
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -34,15 +41,13 @@ public class AddPartForm{
 
 
     /** Changes dynamiclbl to In-House.*/
-    @FXML
-    private void OnClickInHouse(MouseEvent event) {
+    @FXML private void OnClickInHouse(MouseEvent event) {
         this.dynamiclbl.setText("Machine ID");
         System.out.println("in house btn");
     }
 
     /** Changes dynamiclbl to Out-Source. */
-    @FXML
-    private void OnClickOutSource(MouseEvent event) {
+    @FXML private void OnClickOutSource(MouseEvent event) {
         this.dynamiclbl.setText("Company Name");
         System.out.println("Outsourced");
     }
@@ -52,8 +57,7 @@ public class AddPartForm{
      Here you will also find the validation for the items. I was also getting a runtime error which was caused by invalid datatypes
      trying to be passed so I added a try catch to validate those errors.
      * */
-    @FXML
-    private void OnActionSave(ActionEvent event){
+    @FXML private void OnActionSave(ActionEvent event){
 
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("error");
@@ -153,8 +157,7 @@ public class AddPartForm{
     }
 
     /** This method cancels this scene and takes you back to the Mainscreen. */
-    @FXML
-    private void OnActionCancel(ActionEvent event) throws IOException {
+    @FXML private void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
         stage.setScene(new Scene(scene));
