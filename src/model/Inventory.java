@@ -29,20 +29,10 @@ public class Inventory {
         allProducts.add(newProduct);
     }
     public static boolean deletePart(Part selectedPart){
-        for(Part part : Inventory.getAllParts()){
-            if(part.getId() == selectedPart.getId()){
-                return Inventory.getAllParts().remove(selectedPart);
-            }
-        }
-        return false;
+        return  allParts.remove(selectedPart);
     }
     public static boolean deleteProduct(Product selectedProduct){
-        for(Product product : Inventory.getAllProducts()){
-            if(product.getId() == selectedProduct.getId()){
-                return Inventory.getAllProducts().remove(selectedProduct);
-            }
-        }
-        return false;
+        return allProducts.remove(selectedProduct);
     }
 
 

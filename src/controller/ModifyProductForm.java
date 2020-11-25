@@ -66,6 +66,7 @@ public class ModifyProductForm  implements Initializable {
 
         /***  This is where I am having issues     ****/
 //        this.associatedList = product.getAllAssociatedParts();
+
         associatedPartsTable.setItems(prod.getAllAssociatedParts());
 
     }

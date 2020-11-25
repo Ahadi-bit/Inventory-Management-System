@@ -120,12 +120,7 @@ public class Product {
      * @param selectedAssociatedPart deletes the associates part
      */
     public boolean deleteAssociatedPart(Part selectedAssociatedPart){
-        for(Part part : Inventory.getAllParts()){
-            if(part.getId() == selectedAssociatedPart.getId()){
-                return Inventory.getAllParts().remove(selectedAssociatedPart);
-            }
-        }
-        return false;
+        return associatedParts.remove(selectedAssociatedPart);
     }
 
     /**
