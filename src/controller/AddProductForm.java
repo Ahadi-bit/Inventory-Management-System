@@ -1,4 +1,12 @@
 package controller;
+/**
+ * Add Product Form Controller
+ */
+
+/**
+ *
+ * @author Jonathan Payarers
+ */
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,62 +33,34 @@ public class AddProductForm implements Initializable {
     Stage stage;
     Parent scene;
 
-    @FXML
-    private TextField idtxt;
+    //Text fields
+    @FXML private TextField nametxt;
+    @FXML private TextField invtxt;
+    @FXML private TextField maxtxt;
+    @FXML private TextField pricetxt;
+    @FXML private TextField mintxt;
+    @FXML private TextField searchtxt;
 
-    @FXML
-    private TextField nametxt;
+    //Top TableView
+    @FXML private TableView<Part> allPartsTable;
+    @FXML private TableColumn<Part, Integer> partIdCol;
+    @FXML private TableColumn<Part, String> partNameCol;
+    @FXML private TableColumn<Part, Integer> partIventoryLevelCol;
+    @FXML private TableColumn<Part, Double> priceCol;
 
-    @FXML
-    private TextField invtxt;
+    //Bottom TableView
+    @FXML private TableView<Part> associatedPartsTable;
+    @FXML private TableColumn<Part, Integer> associatedPartICol;
+    @FXML private TableColumn<Part, String> associatedPartNamecol;
+    @FXML private TableColumn<Part, Integer> associatedInvLvlcol;
+    @FXML private TableColumn<Part, Double> associatedPricecol;
 
-    @FXML
-    private TextField maxtxt;
-
-    @FXML
-    private TextField pricetxt;
-
-    @FXML
-    private TextField mintxt;
-
-    @FXML
-    private TableColumn<Part, Integer> partIdCol;
-
-    @FXML
-    private TableColumn<Part, String> partNameCol;
-
-    @FXML
-    private TableColumn<Part, Integer> partIventoryLevelCol;
-
-    @FXML
-    private TableColumn<Part, Double> priceCol;
-
-    @FXML
-    private TableColumn<Part, Integer> associatedPartICol;
-
-    @FXML
-    private TableColumn<Part, String> associatedPartNamecol;
-
-    @FXML
-    private TableColumn<Part, Integer> associatedInvLvlcol;
-
-    @FXML
-    private TableColumn<Part, Double> AssociatedPricecol;
-
-    @FXML
-    private TableView<Part> allPartsTable;
-
-    @FXML
-    private TableView<Part> associatedPartsTable;
-
-
-    @FXML
-    private TextField searchtxt;
-
+    /** These Observable list are used to temporarily hold items before the item saves */
     private ObservableList<Part> associatedList = FXCollections.observableArrayList();
     private ObservableList<Part> allPartsList = FXCollections.observableArrayList();
 
 
+    /** This method cancel the AddProductForm and then sends the user back to MainScreenController*/
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -89,6 +69,7 @@ public class AddProductForm implements Initializable {
         stage.show();
     }
 
+    /** This method removes the the associated part to the*/
     @FXML
     void OnActionRemoveAssociatedPart(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
@@ -109,6 +90,10 @@ public class AddProductForm implements Initializable {
         }
     }
 
+    /** This method saves the form
+     *  Here is where the application saves and validates the form entry.
+     *  This method also creates a new ID based on how many items are inside of the products observable list
+     * */
     @FXML
     void OnActionSave(ActionEvent event) {
         Alert error = new Alert(Alert.AlertType.ERROR);
@@ -169,6 +154,7 @@ public class AddProductForm implements Initializable {
 
     }
 
+    /**This methods adds and moves the item into associatedPartsTable*/
     @FXML
     public void OnActionAddItem(ActionEvent actionEvent) {
         Part selectedItem = allPartsTable.getSelectionModel().getSelectedItem();
@@ -193,6 +179,9 @@ public class AddProductForm implements Initializable {
 
     }
 
+    /** Search Funtionality
+     * This method searches the allPartsTable(Top TableView)
+     * */
     @FXML
     void OnActionSearch(ActionEvent event) {
         ObservableList<Part> partToSearch = FXCollections.observableArrayList();
@@ -236,6 +225,7 @@ public class AddProductForm implements Initializable {
         }
     }
 
+    /** Initializes the allPartsTable and associatedPartsTable columns*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allPartsList.setAll(Inventory.getAllParts());
@@ -250,7 +240,7 @@ public class AddProductForm implements Initializable {
         associatedPartICol.setCellValueFactory(new PropertyValueFactory<>("id"));
         associatedPartNamecol.setCellValueFactory(new PropertyValueFactory<>("name"));
         associatedInvLvlcol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        AssociatedPricecol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        associatedPricecol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
 
     }

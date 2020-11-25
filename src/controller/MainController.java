@@ -83,11 +83,14 @@ public class MainController implements Initializable {
     /**This method removes selected Product.
      * This method removes selected Product from productsTable and will also remove the item from the inventory* */
     @FXML void OnActionDeleteProducts(ActionEvent event) {
+        Product prod;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
         alert.setTitle("Confirm");
         if(productsTable.getSelectionModel().getSelectedItem() != null){
             Optional<ButtonType> result = alert.showAndWait();
+
             if(result.get() == ButtonType.OK){
+
                 Inventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
             }
         }
@@ -99,25 +102,26 @@ public class MainController implements Initializable {
     @FXML public void OnActionModifyParts(ActionEvent event) throws IOException{
 
         boolean ifNotSelected = partsTable.getSelectionModel().isEmpty();
-
         if(ifNotSelected){
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("error");
             error.setContentText("No item selected");
             error.show();
+        }else{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/ModifyPartForm.fxml"));
+            loader.load();
+            ModifyPartForm MDFController = loader.getController();
+            MDFController.sendSelectedItem(partsTable.getSelectionModel().getSelectedItem());
+
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+
         }
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/ModifyPartForm.fxml"));
-        loader.load();
-        ModifyPartForm MDFController = loader.getController();
-        MDFController.sendSelectedItem(partsTable.getSelectionModel().getSelectedItem());
-
-
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        stage.setScene(new Scene(scene));
-        stage.show();
 
 
     }

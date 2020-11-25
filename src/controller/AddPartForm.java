@@ -121,7 +121,7 @@ public class AddPartForm{
                 double price = Double.parseDouble(addPartPricetxt.getText().trim());
                 int max = Integer.parseInt(addPartMaxtxt.getText().trim());
                 int min = Integer.parseInt(addPartMintxt.getText().trim());
-                String CompanyName = addPartInvtxt.getText();
+                String CompanyName = addPartTypetxt.getText();
                 Part newItem = new Outsourced(id,partName,price,stock,min,max,CompanyName);
 
                 if(partName.isEmpty()){
