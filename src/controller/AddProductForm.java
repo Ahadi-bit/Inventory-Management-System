@@ -83,6 +83,7 @@ public class AddProductForm implements Initializable {
 
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
+        associatedList.removeAll();
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
         stage.setScene(new Scene(scene));

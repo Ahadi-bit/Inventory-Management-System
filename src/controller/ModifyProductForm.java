@@ -65,7 +65,7 @@ public class ModifyProductForm  implements Initializable {
 
 
         /***  This is where I am having issues     ****/
-//        this.associatedList = product.getAllAssociatedParts();
+//        associatedList = prod.getAllAssociatedParts();
         associatedPartsTable.setItems(prod.getAllAssociatedParts());
 
     }
@@ -127,7 +127,7 @@ public class ModifyProductForm  implements Initializable {
             if(result.get() == ButtonType.OK){
 //                associatedList.add(selectedItem);
                 prod.addAssociatedPart(part);
-                associatedPartsTable.setItems(prod.getAllAssociatedParts());
+//                associatedPartsTable.setItems(associatedList);
 
 //                allPartsList.remove(selectedItem);
                 allPartsTable.refresh();
@@ -156,8 +156,8 @@ public class ModifyProductForm  implements Initializable {
         if(associatedPartsTable.getSelectionModel().getSelectedItem() != null){
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
-//                associatedList.remove(associatedPartsTable.getSelectionModel().getSelectedItem());
                 prod.deleteAssociatedPart(associatedPartsTable.getSelectionModel().getSelectedItem());
+                associatedPartsTable.refresh();
             }
         }
     }

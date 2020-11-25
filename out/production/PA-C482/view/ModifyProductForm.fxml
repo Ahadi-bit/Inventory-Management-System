@@ -67,6 +67,7 @@
         <Button layoutX="629.0" layoutY="382.0" mnemonicParsing="false" onAction="#OnActionRemoveAssociated" text="Remove Associated Part" />
         <Button layoutX="629.0" layoutY="419.0" mnemonicParsing="false" onAction="#OnActionSave" text="Save" />
         <Button layoutX="721.0" layoutY="419.0" mnemonicParsing="false" onAction="#OnActionCancel" text="Cancel" />
-        <TextField fx:id="searchtxt" layoutX="642.0" layoutY="28.0" promptText="Search" />
+        <TextField fx:id="searchtxt" layoutX="635.0" layoutY="28.0" prefHeight="25.0" prefWidth="156.0" promptText="Search by Part ID or Name" />
+      <Button layoutX="577.0" layoutY="28.0" mnemonicParsing="false" onAction="#OnActionSearch" text="Search" />
     </children>
 </AnchorPane>
