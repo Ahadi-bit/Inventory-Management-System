@@ -1,5 +1,12 @@
 package controller;
+/**
+ * Modify Product Form Controller
+ */
 
+/**
+ *
+ * @author Jonathan Payarers
+ */
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,8 +54,8 @@ public class ModifyProductForm  implements Initializable {
 
 
     /** These Observable list are used to temporarily hold items before the item saves */
-//    private ObservableList<Part> associatedList = FXCollections.observableArrayList();
-//    private ObservableList<Part>  allPartsList= FXCollections.observableArrayList();
+    private ObservableList<Part> associatedList = FXCollections.observableArrayList();
+    private ObservableList<Part>  allPartsList= FXCollections.observableArrayList();
     private Product prod;
 
     /**This method passes the selected selected item from the main screen
@@ -65,8 +72,10 @@ public class ModifyProductForm  implements Initializable {
 
 
         /***  This is where I am having issues     ****/
-//        associatedList = prod.getAllAssociatedParts();
+//        associatedList = product.getAllAssociatedParts();
+
         associatedPartsTable.setItems(prod.getAllAssociatedParts());
+        System.out.println(prod.getAllAssociatedParts());
 
     }
 
@@ -123,13 +132,12 @@ public class ModifyProductForm  implements Initializable {
 
         if(allPartsTable.getSelectionModel().getSelectedItem() != null){
             Optional<ButtonType> result = alert.showAndWait();
-            Part part = allPartsTable.getSelectionModel().getSelectedItem();
             if(result.get() == ButtonType.OK){
 //                associatedList.add(selectedItem);
-                prod.addAssociatedPart(part);
-//                associatedPartsTable.setItems(associatedList);
+                prod.addAssociatedPart(selectedItem);
+//                associatedPartsTable.setItems(prod.getAllAssociatedParts());
 
-//                allPartsList.remove(selectedItem);
+                allPartsList.remove(selectedItem);
                 allPartsTable.refresh();
             }
         }
@@ -151,13 +159,14 @@ public class ModifyProductForm  implements Initializable {
 
     /**This method removes the Associated part from the bottom table view and removes from the associatedList*/
     @FXML void OnActionRemoveAssociated(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Are you sure you want to delete item?");
         alert.setTitle("Confirm");
         if(associatedPartsTable.getSelectionModel().getSelectedItem() != null){
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
+                associatedList.remove(associatedPartsTable.getSelectionModel().getSelectedItem());
                 prod.deleteAssociatedPart(associatedPartsTable.getSelectionModel().getSelectedItem());
-                associatedPartsTable.refresh();
             }
         }
     }
@@ -191,9 +200,9 @@ public class ModifyProductForm  implements Initializable {
                 return;
             }
             else{
-//                for(Part parts: associatedList){
-//                    modifiedItem.addAssociatedPart(parts);
-//                }
+                for(Part parts: associatedList){
+                    modifiedItem.addAssociatedPart(parts);
+                }
 
                 Inventory.updateProduct(modifiedItem);
                 scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
@@ -212,8 +221,8 @@ public class ModifyProductForm  implements Initializable {
     /**Initializes the allpartstable**/
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
 
-//        allPartsList.setAll(Inventory.getAllParts());
-        allPartsTable.setItems(Inventory.getAllParts());
+        allPartsList.setAll(Inventory.getAllParts());
+        allPartsTable.setItems(allPartsList);
 
         partIdcol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNamecol.setCellValueFactory(new PropertyValueFactory<>("name"));

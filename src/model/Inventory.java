@@ -21,22 +21,37 @@ public class Inventory {
 
 
 
-
+    /**
+     * @param newPart adds an part allparts list
+     */
     public static void addPart(Part newPart){
         allParts.add(newPart);
     }
+
+    /**
+     * @param newProduct adds an product allProducts list
+     */
     public static void addProduct(Product newProduct){
         allProducts.add(newProduct);
     }
-    public static boolean deletePart(Part selectedPart){
 
-        return allParts.remove(selectedPart);
+    /**
+     * @param selectedPart removes selected Part from the allparts list
+     */
+    public static boolean deletePart(Part selectedPart){
+        return  allParts.remove(selectedPart);
     }
+
+    /**
+     * @param selectedProduct removes selected Product from the allproducts list
+     */
     public static boolean deleteProduct(Product selectedProduct){
         return allProducts.remove(selectedProduct);
     }
 
-
+    /**
+     * @return part based on its part ID
+     */
     public static Part lookupPart(int partid){
         for(int i=0; i< allParts.size();i++){
             if(allParts.get(i).getId() == partid){
@@ -45,6 +60,10 @@ public class Inventory {
         }
         return null;
     }
+
+    /**
+     * @return product based on its product ID
+     */
     public static Product lookupProduct(int productid){
         for(int i=0; i< allProducts.size();i++){
             if(allProducts.get(i).getId() == productid){
@@ -53,6 +72,10 @@ public class Inventory {
         }
         return null;
     }
+
+    /**
+     * @return part based on partName
+     */
     public static ObservableList<Part> lookupPart(String partName){
         partToSearch.clear();
         for(int i=0; i< allParts.size();i++){
@@ -62,6 +85,10 @@ public class Inventory {
         }
         return partToSearch;
     }
+
+    /**
+     * @return product based on productName
+     */
     public  static ObservableList<Product> lookupProduct(String productName){
         productToSearch.clear();
         for(int i=0; i< allProducts.size();i++){
@@ -92,10 +119,16 @@ public class Inventory {
 
     }
 
-
+    /**
+     * @return all the Parts
+     */
     public static ObservableList<Part> getAllParts(){
         return allParts;
     }
+
+    /**
+     * @return all the Products
+     */
     public static ObservableList<Product> getAllProducts(){
         return allProducts;
     }
