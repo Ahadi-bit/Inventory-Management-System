@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
  * @author Jonathan Payares
  */
 public class Product {
-    private static ObservableList<Part> associatedParts = FXCollections.observableArrayList();
+    private final ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     int id;
     String name;
     double price;
@@ -133,8 +133,8 @@ public class Product {
     /**
      * @param associatedParts the associatedPart to set
      */
-    public void setAssociatedParts(ObservableList<Part> associatedParts) {
-        Product.associatedParts = associatedParts;
-    }
+//    public void setAssociatedParts(ObservableList<Part> associatedParts) {
+//        Product.associatedParts = associatedParts;
+//    }
 
 }

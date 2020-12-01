@@ -57,6 +57,8 @@ public class ModifyProductForm  implements Initializable {
     private ObservableList<Part> associatedList = FXCollections.observableArrayList();
     private ObservableList<Part>  allPartsList= FXCollections.observableArrayList();
     private Product prod;
+    Product modifiedItem = new Product(6,"Testing1",3.99,5,1,15);
+
 
     /**This method passes the selected selected item from the main screen
      * @param product passes the selected item information to there appropriate text field and populates the associated table view.
@@ -134,11 +136,11 @@ public class ModifyProductForm  implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
 //                associatedList.add(selectedItem);
-                prod.addAssociatedPart(selectedItem);
-//                associatedPartsTable.setItems(prod.getAllAssociatedParts());
+//                prod.addAssociatedPart(selectedItem);
 
+                modifiedItem.addAssociatedPart(selectedItem);
+                associatedPartsTable.setItems(modifiedItem.getAllAssociatedParts());
                 allPartsList.remove(selectedItem);
-                allPartsTable.refresh();
             }
         }
         else{
@@ -182,7 +184,7 @@ public class ModifyProductForm  implements Initializable {
             double price = Double.parseDouble(Pricetxt.getText().trim());
             int max = Integer.parseInt(Maxtxt.getText().trim());
             int min = Integer.parseInt(mintxt.getText().trim());
-            Product modifiedItem = new Product(id,partName,price,stock,min,max);
+//            Product modifiedItem = new Product(id,partName,price,stock,min,max);
 
             if(partName.isEmpty()){
                 error.setContentText("empty!");
@@ -200,11 +202,19 @@ public class ModifyProductForm  implements Initializable {
                 return;
             }
             else{
-                for(Part parts: associatedList){
-                    modifiedItem.addAssociatedPart(parts);
-                }
+//                for(Part parts: associatedList){
+//                    modifiedItem.addAssociatedPart(parts);
+//                }
+
+                modifiedItem.setName(Nametxt.getText().trim());
+                modifiedItem.setId(id);
+                modifiedItem.setMax(Integer.parseInt(Invtxt.getText().trim()));
+                modifiedItem.setMin(Integer.parseInt(mintxt.getText().trim()));
+                modifiedItem.setPrice(Double.parseDouble(Pricetxt.getText().trim()));
+                modifiedItem.setStock(Integer.parseInt(Invtxt.getText().trim()));
 
                 Inventory.updateProduct(modifiedItem);
+
                 scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(scene));
@@ -222,7 +232,7 @@ public class ModifyProductForm  implements Initializable {
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
 
         allPartsList.setAll(Inventory.getAllParts());
-        allPartsTable.setItems(allPartsList);
+        allPartsTable.setItems(Inventory.getAllParts());
 
         partIdcol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNamecol.setCellValueFactory(new PropertyValueFactory<>("name"));

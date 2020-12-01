@@ -54,16 +54,16 @@ public class AddProductForm implements Initializable {
     @FXML private TableColumn<Part, String> associatedPartNamecol;
     @FXML private TableColumn<Part, Integer> associatedInvLvlcol;
     @FXML private TableColumn<Part, Double> associatedPricecol;
-
+    Product product;
     /** These Observable list are used to temporarily hold items before the item saves */
     private ObservableList<Part> associatedList = FXCollections.observableArrayList();
     private ObservableList<Part> allPartsList = FXCollections.observableArrayList();
+    Product newItem = new Product(6,"Testing1",3.99,5,1,15);
 
 
     /** This method cancel the AddProductForm and then sends the user back to MainScreenController*/
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
-        associatedList.removeAll();
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
         stage.setScene(new Scene(scene));
@@ -102,22 +102,23 @@ public class AddProductForm implements Initializable {
 
         int counter = 1;
         int id = 1;
-        Inventory inv = new Inventory();
 
 
-        for(Product prod: inv.getAllProducts()){
+        for(Product prod: Inventory.getAllProducts()){
             counter = prod.getId();
             counter++;
         }
         id = counter;
 
         try {
+
+
             String partName = nametxt.getText().trim();
             int stock = Integer.parseInt(invtxt.getText().trim());
             double price = Double.parseDouble(pricetxt.getText().trim());
             int max = Integer.parseInt(maxtxt.getText().trim());
             int min = Integer.parseInt(mintxt.getText().trim());
-            Product newItem = new Product(id,partName,price,stock,min,max);
+//            Product newItem = new Product(id,partName,price,stock,min,max);
 
             if(partName.isEmpty()){
                 error.setContentText("empty!");
@@ -134,11 +135,15 @@ public class AddProductForm implements Initializable {
                 error.show();
                 return;
             }
-            else{
+            else {
 
-                for(Part parts: associatedList){
-                    newItem.addAssociatedPart(parts);
-                }
+                newItem.setName(nametxt.getText().trim());
+                newItem.setId(id);
+                newItem.setMax(Integer.parseInt(maxtxt.getText().trim()));
+                newItem.setMin(Integer.parseInt(mintxt.getText().trim()));
+                newItem.setPrice(Double.parseDouble(pricetxt.getText().trim()));
+                newItem.setStock(Integer.parseInt(invtxt.getText().trim()));
+
                 Inventory.addProduct(newItem);
 
 
@@ -147,6 +152,8 @@ public class AddProductForm implements Initializable {
                 stage.setScene(new Scene(scene));
                 stage.show();
             }
+
+
         }catch (Exception e){
             error.setContentText("Invalid Entry");
             error.show();
@@ -165,11 +172,12 @@ public class AddProductForm implements Initializable {
         if(allPartsTable.getSelectionModel().getSelectedItem() != null){
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
-                associatedList.add(selectedItem);
-                associatedPartsTable.setItems(associatedList);
+//                associatedList.add(selectedItem);
+                newItem.addAssociatedPart(selectedItem);
+                associatedPartsTable.setItems(newItem.getAllAssociatedParts());
 
                 allPartsList.remove(selectedItem);
-                allPartsTable.refresh();
+//                allPartsTable.refresh();
             }
         }
         else{
