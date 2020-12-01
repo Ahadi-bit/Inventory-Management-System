@@ -72,9 +72,10 @@ public class ModifyProductForm  implements Initializable {
         Maxtxt.setText(String.valueOf(prod.getMax()));
         mintxt.setText(String.valueOf(prod.getMin()));
 
-
         /***  This is where I am having issues     ****/
         associatedList = prod.getAllAssociatedParts();
+        allPartsList.removeAll(associatedList);
+
 
         associatedPartsTable.setItems(prod.getAllAssociatedParts());
         System.out.println(prod.getAllAssociatedParts());
@@ -137,9 +138,6 @@ public class ModifyProductForm  implements Initializable {
             if(result.get() == ButtonType.OK){
                 associatedList.add(selectedItem);
 
-//                modifiedItem.addAssociatedPart(selectedItem);
-//                modifiedItem.addAssociatedPart(selectedItem);
-
                 associatedPartsTable.setItems(associatedList);
                 allPartsList.remove(selectedItem);
             }
@@ -165,11 +163,14 @@ public class ModifyProductForm  implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to delete item?");
         alert.setTitle("Confirm");
-        if(associatedPartsTable.getSelectionModel().getSelectedItem() != null){
+        Part selectedItem = associatedPartsTable.getSelectionModel().getSelectedItem();
+        if(selectedItem != null){
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
-                associatedList.remove(associatedPartsTable.getSelectionModel().getSelectedItem());
-                prod.deleteAssociatedPart(associatedPartsTable.getSelectionModel().getSelectedItem());
+//               modifiedItem.deleteAssociatedPart(selectedItem);
+               associatedList.remove(selectedItem);
+               allPartsList.add(selectedItem);
+
             }
         }
     }
@@ -182,10 +183,8 @@ public class ModifyProductForm  implements Initializable {
             String partName = Nametxt.getText();
             int id = Integer.parseInt(idtxt.getText().trim());
             int stock = Integer.parseInt(Invtxt.getText().trim());
-            double price = Double.parseDouble(Pricetxt.getText().trim());
             int max = Integer.parseInt(Maxtxt.getText().trim());
             int min = Integer.parseInt(mintxt.getText().trim());
-//            Product modifiedItem = new Product(id,partName,price,stock,min,max);
 
             if(partName.isEmpty()){
                 error.setContentText("empty!");
@@ -233,7 +232,7 @@ public class ModifyProductForm  implements Initializable {
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
 
         allPartsList.setAll(Inventory.getAllParts());
-        allPartsTable.setItems(Inventory.getAllParts());
+        allPartsTable.setItems(allPartsList);
 
         partIdcol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNamecol.setCellValueFactory(new PropertyValueFactory<>("name"));

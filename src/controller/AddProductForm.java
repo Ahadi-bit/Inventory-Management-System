@@ -19,7 +19,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.InHouse;
 import model.Inventory;
 import model.Part;
 import model.Product;
@@ -54,9 +53,8 @@ public class AddProductForm implements Initializable {
     @FXML private TableColumn<Part, String> associatedPartNamecol;
     @FXML private TableColumn<Part, Integer> associatedInvLvlcol;
     @FXML private TableColumn<Part, Double> associatedPricecol;
-    Product product;
+
     /** These Observable list are used to temporarily hold items before the item saves */
-    private ObservableList<Part> associatedList = FXCollections.observableArrayList();
     private ObservableList<Part> allPartsList = FXCollections.observableArrayList();
     Product newItem = new Product(6,"Testing1",3.99,5,1,15);
 
@@ -76,13 +74,13 @@ public class AddProductForm implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
         Alert error = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Confirm");
-        if(associatedPartsTable.getSelectionModel().getSelectedItem() != null){
+        Part selectedItem = associatedPartsTable.getSelectionModel().getSelectedItem();
+        if(selectedItem != null){
 
             Optional<ButtonType> result = alert.showAndWait();
             if(((Optional<?>)result).isPresent() && result.get() == ButtonType.OK){
-                associatedList.remove(associatedPartsTable.getSelectionModel().getSelectedItem());
-                associatedPartsTable.refresh();
-
+                newItem.deleteAssociatedPart(selectedItem);
+                allPartsList.add(selectedItem);
             }
         }
         else{
@@ -115,10 +113,8 @@ public class AddProductForm implements Initializable {
 
             String partName = nametxt.getText().trim();
             int stock = Integer.parseInt(invtxt.getText().trim());
-            double price = Double.parseDouble(pricetxt.getText().trim());
             int max = Integer.parseInt(maxtxt.getText().trim());
             int min = Integer.parseInt(mintxt.getText().trim());
-//            Product newItem = new Product(id,partName,price,stock,min,max);
 
             if(partName.isEmpty()){
                 error.setContentText("empty!");
@@ -172,7 +168,6 @@ public class AddProductForm implements Initializable {
         if(allPartsTable.getSelectionModel().getSelectedItem() != null){
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
-//                associatedList.add(selectedItem);
                 newItem.addAssociatedPart(selectedItem);
                 associatedPartsTable.setItems(newItem.getAllAssociatedParts());
                 allPartsList.remove(selectedItem);
@@ -241,7 +236,6 @@ public class AddProductForm implements Initializable {
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partIventoryLevelCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-
 
 
         associatedPartICol.setCellValueFactory(new PropertyValueFactory<>("id"));
