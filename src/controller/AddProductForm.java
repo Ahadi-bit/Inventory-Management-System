@@ -175,9 +175,7 @@ public class AddProductForm implements Initializable {
 //                associatedList.add(selectedItem);
                 newItem.addAssociatedPart(selectedItem);
                 associatedPartsTable.setItems(newItem.getAllAssociatedParts());
-
                 allPartsList.remove(selectedItem);
-//                allPartsTable.refresh();
             }
         }
         else{
