@@ -22,9 +22,6 @@ import model.*;
 public class Main extends Application {
 
 
-    /**This method is the main entry point of my javafx application.
-     here is where my application is telling my mainform is display first. it is also where my data is initially populated.
-     * */
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -35,9 +32,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    /** This is the Main method.
-     Launches the application
-     * */
+
     public static void main(String[] args) {
         launch(args);
     }

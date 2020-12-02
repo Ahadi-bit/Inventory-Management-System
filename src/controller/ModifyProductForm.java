@@ -35,10 +35,10 @@ public class ModifyProductForm  implements Initializable {
     Parent scene;
 
     @FXML private TextField idtxt;
-    @FXML private TextField Nametxt;
-    @FXML private TextField Invtxt;
-    @FXML private TextField Pricetxt;
-    @FXML private TextField Maxtxt;
+    @FXML private TextField nametxt;
+    @FXML private TextField invtxt;
+    @FXML private TextField pricetxt;
+    @FXML private TextField maxtxt;
     @FXML private TextField mintxt;
     @FXML private TableView<Part> allPartsTable;
     @FXML private TableView<Part> associatedPartsTable;
@@ -49,7 +49,7 @@ public class ModifyProductForm  implements Initializable {
     @FXML private TableColumn<Part,Integer> associatedPartIDcol;
     @FXML private TableColumn<Part, String> associatedPartNamecol;
     @FXML private TableColumn<Part, Integer> associatedInvLvlcol;
-    @FXML private TableColumn<Part, Double> AssociatedPriceCol;
+    @FXML private TableColumn<Part, Double> associatedPriceCol;
     @FXML private TextField searchtxt;
 
 
@@ -57,34 +57,35 @@ public class ModifyProductForm  implements Initializable {
     private ObservableList<Part> associatedList = FXCollections.observableArrayList();
     private ObservableList<Part>  allPartsList= FXCollections.observableArrayList();
     private Product prod;
-    Product modifiedItem = new Product(6,"Testing1",3.99,5,1,15);
+    Product modifiedItem = new Product(6,"filler",3.99,5,1,15);
 
 
     /**This method passes the selected selected item from the main screen
-     * @param product passes the selected item information to there appropriate text field and populates the associated table view.
+     * passes the selected item information to there appropriate text field and populates the associated table view. Here we also remove the associated parts from the allparts list.
+     * This was my solution to prevent users from adding duplicate.
+     *
+     * @param product sends selected item data
      * */
     public void sendSelectedItem(Product product){
         prod = product;
         idtxt.setText(String.valueOf(prod.getId()));
-        Nametxt.setText(prod.getName());
-        Invtxt.setText(String.valueOf(prod.getStock()));
-        Pricetxt.setText(String.valueOf(prod.getPrice()));
-        Maxtxt.setText(String.valueOf(prod.getMax()));
+        nametxt.setText(prod.getName());
+        invtxt.setText(String.valueOf(prod.getStock()));
+        pricetxt.setText(String.valueOf(prod.getPrice()));
+        maxtxt.setText(String.valueOf(prod.getMax()));
         mintxt.setText(String.valueOf(prod.getMin()));
 
-        /***  This is where I am having issues     ****/
         associatedList = prod.getAllAssociatedParts();
         allPartsList.removeAll(associatedList);
-
-
         associatedPartsTable.setItems(prod.getAllAssociatedParts());
-        System.out.println(prod.getAllAssociatedParts());
-
     }
 
 
 
-    /** Search functionality for Modify Product Form*/
+    /** Search functionality for Modify Product Form
+     * this methods performs a search for the top tableview. similar to the Mainscreen method.
+     * @param event event for when the search button is clicked which should perform this method
+     * */
     @FXML void OnActionSearch(ActionEvent event) {
         ObservableList<Part> partToSearch = FXCollections.observableArrayList();
         try{
@@ -118,7 +119,7 @@ public class ModifyProductForm  implements Initializable {
                 error.setTitle("error");
                 error.setContentText("Item is empty");
                 error.show();
-                allPartsTable.setItems(Inventory.getAllParts());
+                allPartsTable.setItems(allPartsList);
 
             }else{
                 allPartsTable.setItems(partToSearch);
@@ -127,7 +128,10 @@ public class ModifyProductForm  implements Initializable {
         }
     }
 
-    /** This method adds the selected part from the the allPartsTable to the associatedPartsTable*/
+    /** This method adds the selected part from the the allPartsTable to the associatedPartsTable
+     *
+     * @param event event for when the Add button is clicked which should perform this method
+     * */
     @FXML void OnActionAdd(ActionEvent event) {
         Part selectedItem = allPartsTable.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to Add?");
@@ -150,7 +154,11 @@ public class ModifyProductForm  implements Initializable {
 
     }
 
-    /** This method cancels the form from save and send the user back to the Main Screen.*/
+    /** This method cancels the form from save and send the user back to the Main Screen.
+     *
+     *@param event event for when the cancel button is clicked which should perform this method
+     *@throws IOException for transition to new scene
+     * */
     @FXML void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
@@ -158,7 +166,13 @@ public class ModifyProductForm  implements Initializable {
         stage.show();
     }
 
-    /**This method removes the Associated part from the bottom table view and removes from the associatedList*/
+    /**This method removes the Associated part from the bottom table view and removes from the associatedList
+     * This function slightly different from the add products controller.
+     * this was because of a logical error causing items to still delete even if the user would cancel modification. my solution to this was to create a temporary ObservableList that will hold
+     * deleted items until item is saved.
+     *
+     * @param event event for when the remove associated parts button is clicked it should perform this method.
+     * */
     @FXML void OnActionRemoveAssociated(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to delete item?");
@@ -167,7 +181,6 @@ public class ModifyProductForm  implements Initializable {
         if(selectedItem != null){
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
-//               modifiedItem.deleteAssociatedPart(selectedItem);
                associatedList.remove(selectedItem);
                allPartsList.add(selectedItem);
 
@@ -175,15 +188,21 @@ public class ModifyProductForm  implements Initializable {
         }
     }
 
-    /** This method adds the populated form the the products list */
+    /** This method adds the populated form the the products list
+     * This method updates the item and sends the user back to the mainscreen. this performs a similar validation from what is on addproductform.
+     * We also loop through the temporary associatedpartsList to add the items into the ObservableList inside the products model.
+     *
+     * @param event event for when the save button is clicked it should perform this method.
+     * */
     @FXML void OnActionSave(ActionEvent event) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("error");
         try {
-            String partName = Nametxt.getText();
+            String partName = nametxt.getText().trim();
             int id = Integer.parseInt(idtxt.getText().trim());
-            int stock = Integer.parseInt(Invtxt.getText().trim());
-            int max = Integer.parseInt(Maxtxt.getText().trim());
+            int stock = Integer.parseInt(invtxt.getText().trim());
+            int max = Integer.parseInt(maxtxt.getText().trim());
+            double price = Double.parseDouble(pricetxt.getText().trim());
             int min = Integer.parseInt(mintxt.getText().trim());
 
             if(partName.isEmpty()){
@@ -206,12 +225,12 @@ public class ModifyProductForm  implements Initializable {
                     modifiedItem.addAssociatedPart(parts);
                 }
 
-                modifiedItem.setName(Nametxt.getText().trim());
+                modifiedItem.setName(partName);
                 modifiedItem.setId(id);
-                modifiedItem.setMax(Integer.parseInt(Invtxt.getText().trim()));
-                modifiedItem.setMin(Integer.parseInt(mintxt.getText().trim()));
-                modifiedItem.setPrice(Double.parseDouble(Pricetxt.getText().trim()));
-                modifiedItem.setStock(Integer.parseInt(Invtxt.getText().trim()));
+                modifiedItem.setMax(max);
+                modifiedItem.setMin(min);
+                modifiedItem.setPrice(price);
+                modifiedItem.setStock(stock);
 
                 Inventory.updateProduct(modifiedItem);
 
@@ -228,7 +247,14 @@ public class ModifyProductForm  implements Initializable {
 
     }
 
-    /**Initializes the allpartstable**/
+    /**Initializes the allpartstable
+     * boths table columns from the allpartsTable and the associatedPartsTable are initialized here.
+     * allpartsList is set here and set in the allPartsTable.
+     *
+     * 
+     * @param url url is used for resolving the path for the root object
+     * @param resourceBundle rb is used to localize the root object
+     * */
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
 
         allPartsList.setAll(Inventory.getAllParts());
@@ -242,7 +268,7 @@ public class ModifyProductForm  implements Initializable {
         associatedPartIDcol.setCellValueFactory(new PropertyValueFactory<>("id"));
         associatedPartNamecol.setCellValueFactory(new PropertyValueFactory<>("name"));
         associatedInvLvlcol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        AssociatedPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        associatedPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 

@@ -118,6 +118,7 @@ public class Product {
 
     /**
      * @param selectedAssociatedPart deletes the associates part
+     * @return selectedAssociated part to delete
      */
     public boolean deleteAssociatedPart(Part selectedAssociatedPart){
         return associatedParts.remove(selectedAssociatedPart);
@@ -129,12 +130,5 @@ public class Product {
     public ObservableList<Part> getAllAssociatedParts(){
         return associatedParts;
     }
-
-    /**
-     * @param associatedParts the associatedPart to set
-     */
-//    public void setAssociatedParts(ObservableList<Part> associatedParts) {
-//        Product.associatedParts = associatedParts;
-//    }
 
 }

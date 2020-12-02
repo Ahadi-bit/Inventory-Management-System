@@ -19,11 +19,11 @@
                 <Font size="20.0" />
             </font>
         </Text>
-        <RadioButton fx:id="modifyPartInhousebtn" layoutX="170.0" layoutY="35.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="80.0" text="In-House">
+        <RadioButton fx:id="modifyPartInhousebtn" layoutX="170.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#OnClickInHouse" prefHeight="17.0" prefWidth="80.0" text="In-House">
          <toggleGroup>
             <ToggleGroup fx:id="partType" />
          </toggleGroup></RadioButton>
-        <RadioButton fx:id="modifyPartOutSourcedbtn" layoutX="302.0" layoutY="35.0" mnemonicParsing="false" text="Outsourced" toggleGroup="$partType" />
+        <RadioButton fx:id="modifyPartOutSourcedbtn" layoutX="314.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#OnClickOutSource" text="Outsourced" toggleGroup="$partType" />
         <VBox layoutX="60.0" layoutY="90.0" prefHeight="200.0" prefWidth="342.0" />
         <GridPane layoutX="32.0" layoutY="74.0" prefHeight="180.0" prefWidth="506.0">
             <columnConstraints>
@@ -47,7 +47,7 @@
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price/Cost" textAlignment="CENTER" wrappingWidth="123.13671875" GridPane.rowIndex="3" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Max" textAlignment="CENTER" wrappingWidth="90.13671875" GridPane.rowIndex="4" />
                 <Text fx:id="dynamiclbl" strokeType="OUTSIDE" strokeWidth="0.0" text="Machine ID" textAlignment="CENTER" wrappingWidth="126.13671875" GridPane.rowIndex="5" />
-                <TextField fx:id="PartIdxt" disable="true" GridPane.columnIndex="1" />
+                <TextField fx:id="partIdxt" disable="true" GridPane.columnIndex="1" />
                 <TextField fx:id="partNametxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="partInvtxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="pricetxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />

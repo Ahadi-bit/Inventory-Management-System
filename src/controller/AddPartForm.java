@@ -40,22 +40,27 @@ public class AddPartForm{
     @FXML private Label dynamiclbl;
 
 
-    /** Changes dynamiclbl to In-House.*/
+    /** Changes dynamiclbl to In-House.
+     * @param event when In house button is clicked change the dyanmiclbl to Machine ID
+     * */
     @FXML private void OnClickInHouse(MouseEvent event) {
         this.dynamiclbl.setText("Machine ID");
         System.out.println("in house btn");
     }
 
-    /** Changes dynamiclbl to Out-Source. */
+    /** Changes dynamiclbl to Out-Source.
+     * @param event when out-sourced button is clicked change the dynamiclbl to company name
+     * */
     @FXML private void OnClickOutSource(MouseEvent event) {
         this.dynamiclbl.setText("Company Name");
         System.out.println("Outsourced");
     }
 
     /** This saves the item.
-     This method adds the items to the parts list which is then displayed on the partsTableView.
-     Here you will also find the validation for the items. I was also getting a runtime error which was caused by invalid datatypes
-     trying to be passed so I added a try catch to validate those errors.
+     * @param event when an action is performed on the save button.
+     *              This method adds the items to the parts list which is then displayed on the partsTableView.
+     *              Here you will also find the validation for the items. I was also getting a runtime error which was caused by invalid datatypes
+     *              trying to be passed so I added a try catch to validate those errors.
      * */
     @FXML private void OnActionSave(ActionEvent event){
 
@@ -156,7 +161,10 @@ public class AddPartForm{
         }
     }
 
-    /** This method cancels this scene and takes you back to the Mainscreen. */
+    /** This method cancels this scene and takes you back to the Mainscreen.
+     * @throws IOException performs exception for transitioning to mainform scene
+     * @param event when action is performed on cancel button, user will be sent to mainscreen scene.
+     * */
     @FXML private void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));

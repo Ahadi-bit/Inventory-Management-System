@@ -40,10 +40,10 @@
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Max" textAlignment="CENTER" wrappingWidth="69.388671875" GridPane.rowIndex="4" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Min" textAlignment="CENTER" wrappingWidth="40.47265625" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                 <TextField fx:id="idtxt" disable="true" GridPane.columnIndex="1" />
-                <TextField fx:id="Nametxt" prefHeight="25.0" prefWidth="66.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="Invtxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="Pricetxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="Maxtxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="nametxt" prefHeight="25.0" prefWidth="66.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="invtxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="pricetxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="maxtxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <TextField fx:id="mintxt" prefHeight="25.0" prefWidth="114.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             </children>
         </GridPane>
@@ -61,7 +61,7 @@
                 <TableColumn fx:id="associatedPartIDcol" prefWidth="46.0" text="Part ID" />
                 <TableColumn fx:id="associatedPartNamecol" prefWidth="66.0" text="Part Name" />
             <TableColumn fx:id="associatedInvLvlcol" prefWidth="95.0" text="Inventory Level" />
-            <TableColumn fx:id="AssociatedPriceCol" prefWidth="127.0" text="Price/ Cost per Unit" />
+            <TableColumn fx:id="associatedPriceCol" prefWidth="127.0" text="Price/ Cost per Unit" />
             </columns>
         </TableView>
         <Button layoutX="629.0" layoutY="382.0" mnemonicParsing="false" onAction="#OnActionRemoveAssociated" text="Remove Associated Part" />

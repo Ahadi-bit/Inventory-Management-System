@@ -20,10 +20,10 @@
          <children>
             <TableView fx:id="partsTable" layoutX="15.0" layoutY="43.0" prefHeight="131.0" prefWidth="406.0">
               <columns>
-                <TableColumn fx:id="PartIdCol" prefWidth="57.0" text="Part ID" />
-                <TableColumn fx:id="PartNameCol" prefWidth="108.0" text="Part name" />
-                  <TableColumn fx:id="InvLvlCol" prefWidth="99.0" text="Inventory Level" />
-                  <TableColumn fx:id="PartsPerUnitCol" prefWidth="141.0" text="Price/ Cost per Unit" />
+                <TableColumn fx:id="partIdCol" prefWidth="57.0" text="Part ID" />
+                <TableColumn fx:id="partNameCol" prefWidth="108.0" text="Part name" />
+                  <TableColumn fx:id="invLvlCol" prefWidth="99.0" text="Inventory Level" />
+                  <TableColumn fx:id="partsPerUnitCol" prefWidth="141.0" text="Price/ Cost per Unit" />
               </columns>
             </TableView>
             <Button layoutX="239.0" layoutY="177.0" mnemonicParsing="false" onAction="#OnActionAddParts" text="Add" />
@@ -34,7 +34,7 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="searchParttxt" layoutX="262.0" layoutY="11.0" prefHeight="0.0" prefWidth="149.0" />
+            <TextField fx:id="searchParttxt" layoutX="262.0" layoutY="11.0" prefHeight="25.0" prefWidth="162.0" promptText="Search by Part ID or Name" />
             <Button layoutX="205.0" layoutY="11.0" mnemonicParsing="false" onAction="#OnActionSearchParts" text="Search" />
          </children>
       </Pane>
@@ -42,8 +42,8 @@
          <children>
             <TableView fx:id="productsTable" layoutX="15.0" layoutY="40.0" prefHeight="131.0" prefWidth="406.0">
                <columns>
-                  <TableColumn fx:id="ProductIdCol" prefWidth="90.0" text="Product ID" />
-                  <TableColumn fx:id="ProductNameCol" prefWidth="96.0" text="Product name" />
+                  <TableColumn fx:id="productIdCol" prefWidth="90.0" text="Product ID" />
+                  <TableColumn fx:id="productNameCol" prefWidth="96.0" text="Product name" />
                   <TableColumn fx:id="productInvLvlCol" prefWidth="95.0" text="Inventory Level" />
                   <TableColumn fx:id="productPerUnitCol" prefWidth="124.0" text="Price/ Cost per Unit" />
                </columns>
@@ -56,7 +56,7 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="SearchProdtxt" layoutX="250.0" layoutY="11.0" />
+            <TextField fx:id="searchProdtxt" layoutX="250.0" layoutY="11.0" prefHeight="25.0" prefWidth="162.0" promptText="Search by Part ID or Name" />
             <Button layoutX="191.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnActionSearchProd" text="Search" />
          </children>
       </Pane>

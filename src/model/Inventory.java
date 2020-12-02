@@ -30,6 +30,7 @@ public class Inventory {
 
     /**
      * @param newProduct adds an product allProducts list
+     *
      */
     public static void addProduct(Product newProduct){
         allProducts.add(newProduct);
@@ -37,6 +38,7 @@ public class Inventory {
 
     /**
      * @param selectedPart removes selected Part from the allparts list
+     * @return selected parts to remove
      */
     public static boolean deletePart(Part selectedPart){
         return  allParts.remove(selectedPart);
@@ -44,6 +46,7 @@ public class Inventory {
 
     /**
      * @param selectedProduct removes selected Product from the allproducts list
+     * @return selected product to remove
      */
     public static boolean deleteProduct(Product selectedProduct){
         return allProducts.remove(selectedProduct);
@@ -51,6 +54,7 @@ public class Inventory {
 
     /**
      * @return part based on its part ID
+     * @param partid partid to lookup
      */
     public static Part lookupPart(int partid){
         for(int i=0; i< allParts.size();i++){
@@ -63,6 +67,7 @@ public class Inventory {
 
     /**
      * @return product based on its product ID
+     * @param productid productId to lookup
      */
     public static Product lookupProduct(int productid){
         for(int i=0; i< allProducts.size();i++){
@@ -75,6 +80,7 @@ public class Inventory {
 
     /**
      * @return part based on partName
+     * @param partName partname to lookup
      */
     public static ObservableList<Part> lookupPart(String partName){
         partToSearch.clear();
@@ -88,6 +94,7 @@ public class Inventory {
 
     /**
      * @return product based on productName
+     * @param productName productname to lookup
      */
     public  static ObservableList<Product> lookupProduct(String productName){
         productToSearch.clear();
@@ -100,6 +107,9 @@ public class Inventory {
     }
 
 
+    /**
+     * @param selectedPart selectedpart to update
+     * */
     public static void updatePart(Part selectedPart){
         for(int i = 0; i<allParts.size(); i++){
             if(allParts.get(i).getId() == selectedPart.getId()){
@@ -109,6 +119,10 @@ public class Inventory {
             }
         }
     }
+
+    /**
+     * @param selectedProduct selectedProduct to update
+     * */
     public  static void updateProduct(Product selectedProduct){
         for(int i = 0; i<allProducts.size(); i++){
             if(allProducts.get(i).getId() == selectedProduct.getId()){

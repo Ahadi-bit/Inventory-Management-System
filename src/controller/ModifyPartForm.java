@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.InHouse;
@@ -31,7 +32,7 @@ public class ModifyPartForm{
     @FXML private RadioButton modifyPartInhousebtn;
     @FXML private ToggleGroup partType;
     @FXML private RadioButton modifyPartOutSourcedbtn;
-    @FXML private TextField PartIdxt;
+    @FXML private TextField partIdxt;
     @FXML private TextField partNametxt;
     @FXML private TextField partInvtxt;
     @FXML private TextField pricetxt;
@@ -40,11 +41,30 @@ public class ModifyPartForm{
     @FXML private TextField mintxt;
     @FXML private Text dynamiclbl;
 
+    /** Changes dynamiclbl to In-House.
+     *
+     * @param event in In house button is clicked change the dyanmiclbl to Machine ID
+     * */
+    @FXML private void OnClickInHouse(MouseEvent event) {
+        this.dynamiclbl.setText("Machine ID");
+        System.out.println("in house btn");
+    }
 
+    /** Changes dynamiclbl to Out-Source.
+     *
+     * @param event when out-sourced button is clicked change the dynamiclbl to company name
+     * */
+    @FXML private void OnClickOutSource(MouseEvent event) {
+        this.dynamiclbl.setText("Company Name");
+        System.out.println("Outsourced");
+    }
 
-    /** This method grabs the selected item to be modified*/
+    /** This method grabs the selected item to be modified
+     * @param part method that sends the data to the modify part form. here we are filling in the different text fields.
+     *             also a conditional is performed to check which instanceof part the selected part is and will change the dynamiclbl based on that.
+     * */
     public void sendSelectedItem(Part part){
-        PartIdxt.setText(String.valueOf(part.getId()));
+        partIdxt.setText(String.valueOf(part.getId()));
         partNametxt.setText(part.getName());
         partInvtxt.setText(String.valueOf(part.getStock()));
         pricetxt.setText(String.valueOf(part.getPrice()));
@@ -65,7 +85,10 @@ public class ModifyPartForm{
 
     }
 
-    /** This method cancels this scene and takes you back to the Mainscreen. */
+    /** This method cancels this scene and takes you back to the Mainscreen.
+     * @throws IOException for Scene transition
+     * @param event This send the user back to the mainscreen when an action is peroform on the cancel button.
+     * */
     @FXML private void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
@@ -75,8 +98,8 @@ public class ModifyPartForm{
 
 
     /**This method updates the item for the selected item
-        This method also performs the same validation similar to the OnActionSave for the Addparts form.
-        With the exception of calling the update method instead of the add method
+        @param event This method also performs the same validation similar to the OnActionSave for the Addparts form.
+                     With the exception of calling the update method instead of the add method
      * */
     @FXML private void OnActionSave(ActionEvent event) {
         Alert error = new Alert(Alert.AlertType.ERROR);
@@ -90,7 +113,7 @@ public class ModifyPartForm{
 
             try {
                 String partName = partNametxt.getText();
-                int id = Integer.parseInt(PartIdxt.getText().trim());
+                int id = Integer.parseInt(partIdxt.getText().trim());
                 int stock = Integer.parseInt(partInvtxt.getText().trim());
                 double price = Double.parseDouble(pricetxt.getText().trim());
                 int max = Integer.parseInt(maxtxt.getText().trim());
@@ -132,7 +155,7 @@ public class ModifyPartForm{
         else if(partType.getSelectedToggle().equals(modifyPartOutSourcedbtn)) {
             try {
                 String partName = partNametxt.getText();
-                int id = Integer.parseInt(PartIdxt.getText().trim());
+                int id = Integer.parseInt(partIdxt.getText().trim());
                 int stock = Integer.parseInt(partInvtxt.getText().trim());
                 double price = Double.parseDouble(pricetxt.getText().trim());
                 int max = Integer.parseInt(maxtxt.getText().trim());

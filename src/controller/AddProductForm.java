@@ -59,7 +59,11 @@ public class AddProductForm implements Initializable {
     Product newItem = new Product(6,"Testing1",3.99,5,1,15);
 
 
-    /** This method cancel the AddProductForm and then sends the user back to MainScreenController*/
+    /** This method cancel the AddProductForm and then sends the user back to MainScreenController
+     *  cancels the addproductform and sends the user back to the main screen
+     * @param event event for when the cancel button is clicked it should perform this method
+     * @throws IOException for transition to new scene
+     * */
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -68,7 +72,11 @@ public class AddProductForm implements Initializable {
         stage.show();
     }
 
-    /** This method removes the the associated part to the*/
+    /** This method removes the associated part for the associatedpartsList in the products model.
+     * This method also adds the item back into the allPartsList which adds the it back to the tableview.
+     *
+     * @param event event for when the remove associated parts button is clicked it should perform this method.
+     * */
     @FXML
     void OnActionRemoveAssociatedPart(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
@@ -90,8 +98,11 @@ public class AddProductForm implements Initializable {
     }
 
     /** This method saves the form
+     *
      *  Here is where the application saves and validates the form entry.
      *  This method also creates a new ID based on how many items are inside of the products observable list
+     *
+     * @param event event for when the save button is clicked it should perform this method
      * */
     @FXML
     void OnActionSave(ActionEvent event) {
@@ -158,7 +169,13 @@ public class AddProductForm implements Initializable {
 
     }
 
-    /**This methods adds and moves the item into associatedPartsTable*/
+    /**This methods adds and moves the item into associatedPartsTable
+     * this method also removes the item for the allparts allparts list which removes the item from the allpartsTable.
+     * Validation is also placed to confirm if end user would like to add the item.
+     * if nothings is selected the user will be prompted with an error that reads "Nothing selected"
+     *
+     * @param actionEvent  event for when the add button is clicked which should perform this method
+     * */
     @FXML
     public void OnActionAddItem(ActionEvent actionEvent) {
         Part selectedItem = allPartsTable.getSelectionModel().getSelectedItem();
@@ -182,7 +199,10 @@ public class AddProductForm implements Initializable {
     }
 
     /** Search Funtionality
-     * This method searches the allPartsTable(Top TableView)
+     * This method searches the allPartsTable(Top TableView).
+     * this functionality is exactly the same to what is in the mainscreencontroller
+     *
+     * @param event event for when the search button is clicked which should perform this method
      * */
     @FXML
     void OnActionSearch(ActionEvent event) {
@@ -227,9 +247,13 @@ public class AddProductForm implements Initializable {
         }
     }
 
-    /** Initializes the allPartsTable and associatedPartsTable columns*/
+
+    /** Initializes the allPartsTable and associatedPartsTable columns
+     * @param url url is used for resolving the path for the root object
+     * @param rb rb is used to localize the root object
+     * */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle rb) {
         allPartsList.setAll(Inventory.getAllParts());
         allPartsTable.setItems(allPartsList);
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
