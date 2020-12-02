@@ -64,8 +64,7 @@ public class AddProductForm implements Initializable {
      * @param event event for when the cancel button is clicked it should perform this method
      * @throws IOException for transition to new scene
      * */
-    @FXML
-    void OnActionCancel(ActionEvent event) throws IOException {
+    @FXML private void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
         stage.setScene(new Scene(scene));
@@ -77,8 +76,7 @@ public class AddProductForm implements Initializable {
      *
      * @param event event for when the remove associated parts button is clicked it should perform this method.
      * */
-    @FXML
-    void OnActionRemoveAssociatedPart(ActionEvent event) {
+    @FXML private void OnActionRemoveAssociatedPart(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
         Alert error = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Confirm");
@@ -104,8 +102,7 @@ public class AddProductForm implements Initializable {
      *
      * @param event event for when the save button is clicked it should perform this method
      * */
-    @FXML
-    void OnActionSave(ActionEvent event) {
+    @FXML private void OnActionSave(ActionEvent event) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("error");
 
@@ -176,8 +173,7 @@ public class AddProductForm implements Initializable {
      *
      * @param actionEvent  event for when the add button is clicked which should perform this method
      * */
-    @FXML
-    public void OnActionAddItem(ActionEvent actionEvent) {
+    @FXML private void OnActionAddItem(ActionEvent actionEvent) {
         Part selectedItem = allPartsTable.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to Add?");
         alert.setTitle("Confirm");
@@ -204,8 +200,7 @@ public class AddProductForm implements Initializable {
      *
      * @param event event for when the search button is clicked which should perform this method
      * */
-    @FXML
-    void OnActionSearch(ActionEvent event) {
+    @FXML private void OnActionSearch(ActionEvent event) {
         ObservableList<Part> partToSearch = FXCollections.observableArrayList();
         try{
             int idToSearch = Integer.parseInt(searchtxt.getText());
@@ -236,7 +231,7 @@ public class AddProductForm implements Initializable {
             if(partToSearch.size() == 0){
                 Alert error = new Alert(Alert.AlertType.ERROR);
                 error.setTitle("error");
-                error.setContentText("Item is empty");
+                error.setContentText("Item does not exist");
                 error.show();
                 allPartsTable.setItems(Inventory.getAllParts());
 
@@ -252,8 +247,7 @@ public class AddProductForm implements Initializable {
      * @param url url is used for resolving the path for the root object
      * @param rb rb is used to localize the root object
      * */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @Override public void initialize(URL url, ResourceBundle rb) {
         allPartsList.setAll(Inventory.getAllParts());
         allPartsTable.setItems(allPartsList);
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));

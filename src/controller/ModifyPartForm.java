@@ -42,8 +42,9 @@ public class ModifyPartForm{
     @FXML private Text dynamiclbl;
 
     /** Changes dynamiclbl to In-House.
+     *in In house button is clicked change the dyanmiclbl to Machine ID
      *
-     * @param event in In house button is clicked change the dyanmiclbl to Machine ID
+     * @param event event for when the In-House button is clicked which should perform this method.
      * */
     @FXML private void OnClickInHouse(MouseEvent event) {
         this.dynamiclbl.setText("Machine ID");
@@ -51,8 +52,9 @@ public class ModifyPartForm{
     }
 
     /** Changes dynamiclbl to Out-Source.
+     * when out-sourced button is clicked change the dynamiclbl to company name
      *
-     * @param event when out-sourced button is clicked change the dynamiclbl to company name
+     * @param event event for when the Out-Source button is clicked which should perform this method.
      * */
     @FXML private void OnClickOutSource(MouseEvent event) {
         this.dynamiclbl.setText("Company Name");
@@ -60,8 +62,11 @@ public class ModifyPartForm{
     }
 
     /** This method grabs the selected item to be modified
-     * @param part method that sends the data to the modify part form. here we are filling in the different text fields.
-     *             also a conditional is performed to check which instanceof part the selected part is and will change the dynamiclbl based on that.
+     * method that sends the data to the modify part form. here we are filling in the different text fields.
+     * also a conditional is performed to check which instanceof part the selected part is and will change the dynamiclbl based on that.
+     *
+     * @param part selected Part to modify
+     *
      * */
     public void sendSelectedItem(Part part){
         partIdxt.setText(String.valueOf(part.getId()));
@@ -86,8 +91,10 @@ public class ModifyPartForm{
     }
 
     /** This method cancels this scene and takes you back to the Mainscreen.
+     * This send the user back to the mainscreen when an action is peroform on the cancel button.
+     *
      * @throws IOException for Scene transition
-     * @param event This send the user back to the mainscreen when an action is peroform on the cancel button.
+     * @param event event for when the cancel button is clicked which should perform this method.
      * */
     @FXML private void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -96,10 +103,11 @@ public class ModifyPartForm{
         stage.show();
     }
 
-
     /**This method updates the item for the selected item
-        @param event This method also performs the same validation similar to the OnActionSave for the Addparts form.
-                     With the exception of calling the update method instead of the add method
+     * This method also performs the same validation similar to the OnActionSave for the Addparts form.
+     * With the exception of calling the update method instead of the add method
+     *
+     * @param event event for when the cancel button is clicked which should perform this method.
      * */
     @FXML private void OnActionSave(ActionEvent event) {
         Alert error = new Alert(Alert.AlertType.ERROR);

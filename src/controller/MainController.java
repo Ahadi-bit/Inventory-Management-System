@@ -49,11 +49,14 @@ public class MainController implements Initializable {
     @FXML private TableColumn<Product, Double> productPerUnitCol;
     @FXML private TextField searchProdtxt;
 
+
     /** This method opens loads the appPartForm scene
+     * when action is performed on add button on the parts pane user will open the addpart scene
+     *
      * @throws IOException for Scene transition
-     * @param event when action is performed on add button on the parts pane user will open the addpart scene
+     * @param event event for when the add button in the parts pane is clicked which should perform this method.
      * */
-    @FXML void OnActionAddParts(ActionEvent event) throws IOException {
+    @FXML private void OnActionAddParts(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AddPartForm.fxml"));
         stage.setScene(new Scene(scene));
@@ -61,10 +64,12 @@ public class MainController implements Initializable {
     }
 
     /** This method opens loads the appProductForm scene
+     * when action is performed on add button on the products pane user will open the addproduct scene.
+     *
      * @throws IOException for Scene transition
-     * @param event when action is performed on add button on the products pane user will open the addproduct scene
+     * @param event event for when the add button in the product pane is clicked which should perform this method.
      * */
-    @FXML void OnActionAddProducts(ActionEvent event) throws IOException{
+    @FXML private void OnActionAddProducts(ActionEvent event) throws IOException{
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AddProductForm.fxml"));
         stage.setScene(new Scene(scene));
@@ -73,8 +78,11 @@ public class MainController implements Initializable {
 
 
     /**This method removes selected part.
-     *@param event when action is performed on the delete parts pane it will remove the item that is selected. User will first hit a dialog to confirm delete of said item. once confirmed item will be deleted.*/
-    @FXML void OnActionDeletePart(ActionEvent event) {
+     * when action is performed on the delete parts pane it will remove the item that is selected.
+     * User will first hit a dialog to confirm delete of said item. once confirmed item will be deleted.
+     *
+     *@param event event for when the delete button in the product pane is clicked which should perform this method*/
+    @FXML private void OnActionDeletePart(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
         alert.setTitle("Confirm");
         if(partsTable.getSelectionModel().getSelectedItem() != null){
@@ -87,8 +95,11 @@ public class MainController implements Initializable {
     }
 
     /**This method removes selected Product.
-     *@param event This method removes selected Product from productsTable and will also remove the item from the inventory. User will first hit a dialog to confirm delete of said item. once confirmed item will be deleted. */
-    @FXML void OnActionDeleteProducts(ActionEvent event) {
+     * This method removes selected Product from productsTable and will also remove the item from the inventory.
+     * User will first hit a dialog to confirm delete of said item. once confirmed item will be deleted.
+     *
+     *@param event event for when the delete button in the products pane is clicked which should perform this method */
+    @FXML private void OnActionDeleteProducts(ActionEvent event) {
         Product prod;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
         alert.setTitle("Confirm");
@@ -104,9 +115,11 @@ public class MainController implements Initializable {
 
 
     /** This method opens the modify parts scene.
+     * when action is performed on modify button located on the parts pane, user will open the modify part scene. User will face a dialog if not item is selected prior to hitting this button.
+     *
      * @throws IOException for Scene transition
-     *@param event when action is performed on modify button located on the parts pane, user will open the modify part scene. User will face a dialog if not item is selected prior to hitting this button.* */
-    @FXML public void OnActionModifyParts(ActionEvent event) throws IOException{
+     *@param event event for when the modify button in the parts pane is clicked which should perform this method* */
+    @FXML private void OnActionModifyParts(ActionEvent event) throws IOException{
 
         boolean ifNotSelected = partsTable.getSelectionModel().isEmpty();
         if(ifNotSelected){
@@ -134,9 +147,11 @@ public class MainController implements Initializable {
     }
 
     /** This method opens the modify products scene.
+     * when action is performed on modify button located on the products pane, user will open the modify product scene. User will face a dialog if not item is selected prior to hitting this button.
+     *
      *  @throws IOException for Scene transition
-     *  @param event when action is performed on modify button located on the products pane, user will open the modify product scene. User will face a dialog if not item is selected prior to hitting this button.* */
-    @FXML public void OnActionModifyProducts(ActionEvent event) throws IOException{
+     *  @param event event for when the modify button in the products pane is clicked which should perform this method * */
+    @FXML private void OnActionModifyProducts(ActionEvent event) throws IOException{
 
         boolean ifNotSelected = productsTable.getSelectionModel().isEmpty();
         if(ifNotSelected){
@@ -165,10 +180,13 @@ public class MainController implements Initializable {
     }
 
     /** Search Functionality for Parts Table
-     * @param event when the item is clicked the user will be able to search item by part ID or by part name. if the user types incorrectly than an error dialog will pop up reading
-     *              "Item does not exist". If user clicks the button with nothing in the txtfield, then the dialog box will read "Item is empty"
+     * when the item is clicked the user will be able to search item by part ID or by part name. if the user types incorrectly than an error dialog will pop up reading
+     *"Item does not exist". If user clicks the button with nothing in the txtfield, then the dialog box will read "Item is empty".I decided to wrap everything with a try.
+     *This is how I am handling if the item is either a productname vs a productID.
+     *
+     * @param event event for when the search button in the parts pane is clicked which should perform this method.
      * * */
-    @FXML public void OnActionSearchParts(ActionEvent event) {
+    @FXML private void OnActionSearchParts(ActionEvent event) {
         ObservableList<Part> partToSearch = FXCollections.observableArrayList();
             try{
                 int idToSearch = Integer.parseInt(searchParttxt.getText());
@@ -211,10 +229,13 @@ public class MainController implements Initializable {
     }
 
     /** Search Functionality for Products Table*
-     *@param event when the item is clicked the user will be able to search item by product ID or by product name. if the user types incorrectly than an error dialog will pop up reading
-     *             "Item does not exist". If user clicks the button with nothing in the txtfield, then the dialog box will read "Item is empty"
+     * when the item is clicked the user will be able to search item by product ID or by product name. if the user types incorrectly than an error dialog will pop up reading
+     *"Item does not exist". If user clicks the button with nothing in the txtfield, then the dialog box will read "Item is empty". I decided to wrap everything with a try.
+     * This is how I am handling if the item is either a productname vs a productID.
+     *
+     *@param event event for when the search button in the products pane is clicked which should perform this method.
      * */
-    @FXML public void OnActionSearchProd(ActionEvent event) {
+    @FXML private void OnActionSearchProd(ActionEvent event) {
         ObservableList<Product> productToSearch = FXCollections.observableArrayList();
         try{
             int idToSearch = Integer.parseInt(searchProdtxt.getText());
@@ -245,21 +266,25 @@ public class MainController implements Initializable {
             if(productToSearch.size() == 0){
                 Alert error = new Alert(Alert.AlertType.ERROR);
                 error.setTitle("error");
-                error.setContentText("Item is empty");
+                error.setContentText("Not Item Found");
                 error.show();
                 productsTable.setItems(Inventory.getAllProducts());
 
             }else{
+
                 productsTable.setItems(productToSearch);
                 productsTable.refresh();
             }
         }
+
+
     }
 
-    /**
-     * @param event Exits program
+    /**Exits program
+     *
+     * @param event event for when the search exit button is clicked which should perform this method.
      * */
-    @FXML public void OnActionExit(ActionEvent event) {
+    @FXML private void OnActionExit(ActionEvent event) {
         System.exit(0);
     }
 

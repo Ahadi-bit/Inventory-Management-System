@@ -41,7 +41,9 @@ public class AddPartForm{
 
 
     /** Changes dynamiclbl to In-House.
-     * @param event when In house button is clicked change the dyanmiclbl to Machine ID
+     *  when In house button is clicked change the dyanmiclbl to Machine ID
+     *
+     * @param event event for when the In-House button is clicked which should perform this method.
      * */
     @FXML private void OnClickInHouse(MouseEvent event) {
         this.dynamiclbl.setText("Machine ID");
@@ -49,7 +51,9 @@ public class AddPartForm{
     }
 
     /** Changes dynamiclbl to Out-Source.
-     * @param event when out-sourced button is clicked change the dynamiclbl to company name
+     * when out-sourced button is clicked change the dynamiclbl to company name
+     *
+     * @param event event for when the In-House button is clicked which should perform this method.
      * */
     @FXML private void OnClickOutSource(MouseEvent event) {
         this.dynamiclbl.setText("Company Name");
@@ -57,10 +61,12 @@ public class AddPartForm{
     }
 
     /** This saves the item.
-     * @param event when an action is performed on the save button.
-     *              This method adds the items to the parts list which is then displayed on the partsTableView.
-     *              Here you will also find the validation for the items. I was also getting a runtime error which was caused by invalid datatypes
-     *              trying to be passed so I added a try catch to validate those errors.
+     * when an action is performed on the save button.
+     * This method adds the items to the parts list which is then displayed on the partsTableView.
+     * Here you will also find the validation for the items. I was also getting a runtime error which was caused by invalid datatypes
+     * trying to be passed so I added a try catch to validate those errors.
+     *
+     * @param event event for when the save button is clicked which should perform this method.
      * */
     @FXML private void OnActionSave(ActionEvent event){
 
@@ -162,8 +168,11 @@ public class AddPartForm{
     }
 
     /** This method cancels this scene and takes you back to the Mainscreen.
-     * @throws IOException performs exception for transitioning to mainform scene
-     * @param event when action is performed on cancel button, user will be sent to mainscreen scene.
+     * when action is performed on cancel button, user will be sent to mainscreen scene.
+     *
+     *
+     * @throws IOException for Scene transition
+     * @param event event for when the cancel button is clicked which should perform this method.
      * */
     @FXML private void OnActionCancel(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
