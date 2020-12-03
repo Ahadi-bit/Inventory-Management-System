@@ -78,6 +78,7 @@ public class Inventory {
     }
 
     /**
+     *
      * @return part based on partName
      * @param partName partname to lookup
      */
@@ -85,13 +86,11 @@ public class Inventory {
         ObservableList<Part> partToSearch = FXCollections.observableArrayList();
         partToSearch.clear();
         for(int i=0; i< allParts.size();i++){
-            if(allParts.get(i).getName().toLowerCase().equals(partName.toLowerCase())){
+            if(allParts.get(i).getName().toLowerCase().contains(partName.toLowerCase())){
                 partToSearch.add(allParts.get(i));
             }
         }
         return partToSearch;
-
-
     }
 
     /**
@@ -102,7 +101,7 @@ public class Inventory {
         ObservableList<Product> productToSearch = FXCollections.observableArrayList();
         productToSearch.clear();
         for(int i=0; i< allProducts.size();i++){
-            if(allProducts.get(i).getName().toLowerCase().equals(productName.toLowerCase())){
+            if(allProducts.get(i).getName().toLowerCase().contains(productName.toLowerCase())){
                 productToSearch.add(allProducts.get(i));
             }
         }

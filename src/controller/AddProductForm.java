@@ -23,6 +23,7 @@ import model.Inventory;
 import model.Part;
 import model.Product;
 
+import java.io.Console;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -214,7 +215,7 @@ public class AddProductForm implements Initializable {
                 if(partToSearch.size() == 0){
                     Alert error = new Alert(Alert.AlertType.ERROR);
                     error.setTitle("error");
-                    error.setContentText("Item is empty");
+                    error.setContentText("Item is empty or not found");
                     error.show();
                     allPartsTable.setItems(Inventory.getAllParts());
 
@@ -227,13 +228,12 @@ public class AddProductForm implements Initializable {
         }catch (Exception e){
             String nameToSearch = searchtxt.getText();
             partToSearch = Inventory.lookupPart(nameToSearch);
-
-            if(partToSearch.size() == 0){
+            if(partToSearch.size() == 0 || nameToSearch.isEmpty()){
                 Alert error = new Alert(Alert.AlertType.ERROR);
                 error.setTitle("error");
-                error.setContentText("Item does not exist");
+                error.setContentText("Item does not exist or Empty");
                 error.show();
-                allPartsTable.setItems(Inventory.getAllParts());
+                allPartsTable.setItems(allPartsList);
 
             }else{
                 allPartsTable.setItems(partToSearch);

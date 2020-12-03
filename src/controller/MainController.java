@@ -83,15 +83,22 @@ public class MainController implements Initializable {
      *
      *@param event event for when the delete button in the product pane is clicked which should perform this method*/
     @FXML private void OnActionDeletePart(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
-        alert.setTitle("Confirm");
-        if(partsTable.getSelectionModel().getSelectedItem() != null){
-            Optional<ButtonType> result = alert.showAndWait();
-            if( result.get() == ButtonType.OK){
-                Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
+        boolean ifNotSelected = partsTable.getSelectionModel().isEmpty();
+        if(ifNotSelected){
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("error");
+            error.setContentText("No item selected");
+            error.show();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
+            alert.setTitle("Confirm");
+            if(partsTable.getSelectionModel().getSelectedItem() != null){
+                Optional<ButtonType> result = alert.showAndWait();
+                if( result.get() == ButtonType.OK){
+                    Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
+                }
             }
         }
-
     }
 
     /**This method removes selected Product.
@@ -100,15 +107,22 @@ public class MainController implements Initializable {
      *
      *@param event event for when the delete button in the products pane is clicked which should perform this method */
     @FXML private void OnActionDeleteProducts(ActionEvent event) {
-        Product prod;
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
-        alert.setTitle("Confirm");
-        if(productsTable.getSelectionModel().getSelectedItem() != null){
-            Optional<ButtonType> result = alert.showAndWait();
+        boolean ifNotSelected = productsTable.getSelectionModel().isEmpty();
+        if(ifNotSelected){
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("error");
+            error.setContentText("No item selected");
+            error.show();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete item?");
+            alert.setTitle("Confirm");
+            if(productsTable.getSelectionModel().getSelectedItem() != null){
+                Optional<ButtonType> result = alert.showAndWait();
 
-            if(result.get() == ButtonType.OK){
+                if(result.get() == ButtonType.OK){
 
-                Inventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
+                    Inventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
+                }
             }
         }
     }
@@ -182,12 +196,13 @@ public class MainController implements Initializable {
     /** Search Functionality for Parts Table
      * when the item is clicked the user will be able to search item by part ID or by part name. if the user types incorrectly than an error dialog will pop up reading
      *"Item does not exist". If user clicks the button with nothing in the txtfield, then the dialog box will read "Item is empty".I decided to wrap everything with a try.
-     *This is how I am handling if the item is either a productname vs a productID.
+     *This is how I am handling if the item is either a productname vs a productID.I fixed my first submission but changing me lookup to contain() instead of equal()
      *
      * @param event event for when the search button in the parts pane is clicked which should perform this method.
      * * */
     @FXML private void OnActionSearchParts(ActionEvent event) {
         ObservableList<Part> partToSearch = FXCollections.observableArrayList();
+
             try{
                 int idToSearch = Integer.parseInt(searchParttxt.getText());
                 if(Inventory.lookupPart(idToSearch) == null){
@@ -213,15 +228,16 @@ public class MainController implements Initializable {
             }catch (Exception e){
                 String nameToSearch = searchParttxt.getText();
                 partToSearch = Inventory.lookupPart(nameToSearch);
-
-                if(partToSearch.size() == 0){
+              if(partToSearch.size() == 0 || nameToSearch.isEmpty()){
                     Alert error = new Alert(Alert.AlertType.ERROR);
                     error.setTitle("error");
-                    error.setContentText("Item is empty");
+                    error.setContentText("Item does not exist or Empty");
+
                     error.show();
                     partsTable.setItems(Inventory.getAllParts());
 
                 }else{
+
                     partsTable.setItems(partToSearch);
                     partsTable.refresh();
                 }
@@ -249,13 +265,15 @@ public class MainController implements Initializable {
                 if(productToSearch.size() == 0){
                     Alert error = new Alert(Alert.AlertType.ERROR);
                     error.setTitle("error");
-                    error.setContentText("Item is empty");
+                    error.setContentText("Item is does not exist");
                     error.show();
                     productsTable.setItems(Inventory.getAllProducts());
 
-                }else{
-                    productsTable.setItems(productToSearch);
-                    productsTable.refresh();
+
+                } else {
+                        productsTable.setItems(productToSearch);
+                        productsTable.refresh();
+
                 }
             }
 
@@ -263,10 +281,10 @@ public class MainController implements Initializable {
             String nameToSearch = searchProdtxt.getText();
             productToSearch = Inventory.lookupProduct(nameToSearch);
 
-            if(productToSearch.size() == 0){
+             if(productToSearch.size() == 0 || nameToSearch.isEmpty()){
                 Alert error = new Alert(Alert.AlertType.ERROR);
                 error.setTitle("error");
-                error.setContentText("Not Item Found");
+                error.setContentText("Item does not exist or Empty");
                 error.show();
                 productsTable.setItems(Inventory.getAllProducts());
 

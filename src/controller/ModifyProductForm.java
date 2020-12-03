@@ -76,6 +76,7 @@ public class ModifyProductForm  implements Initializable {
         mintxt.setText(String.valueOf(prod.getMin()));
 
         associatedList = prod.getAllAssociatedParts();
+        allPartsList.setAll(Inventory.getAllParts());
         allPartsList.removeAll(associatedList);
         associatedPartsTable.setItems(prod.getAllAssociatedParts());
     }
@@ -84,6 +85,7 @@ public class ModifyProductForm  implements Initializable {
 
     /** Search functionality for Modify Product Form
      * this methods performs a search for the top tableview. similar to the Mainscreen method.
+     *
      * @param event event for when the search button is clicked which should perform this method
      * */
     @FXML private void OnActionSearch(ActionEvent event) {
@@ -94,7 +96,7 @@ public class ModifyProductForm  implements Initializable {
                 Alert error = new Alert(Alert.AlertType.ERROR);
                 error.setContentText("Item does not exist");
                 error.showAndWait();
-                allPartsTable.setItems(Inventory.getAllParts());
+                allPartsTable.setItems(allPartsList);
             }else {
                 partToSearch.add(Inventory.lookupPart(idToSearch));
                 if(partToSearch.size() == 0){
@@ -102,7 +104,7 @@ public class ModifyProductForm  implements Initializable {
                     error.setTitle("error");
                     error.setContentText("Item is empty");
                     error.show();
-                    allPartsTable.setItems(Inventory.getAllParts());
+                    allPartsTable.setItems(allPartsList);
 
                 }else{
                     allPartsTable.setItems(partToSearch);
@@ -114,10 +116,10 @@ public class ModifyProductForm  implements Initializable {
             String nameToSearch = searchtxt.getText();
             partToSearch = Inventory.lookupPart(nameToSearch);
 
-            if(partToSearch.size() == 0){
+            if(partToSearch.size() == 0 || nameToSearch.isEmpty()){
                 Alert error = new Alert(Alert.AlertType.ERROR);
                 error.setTitle("error");
-                error.setContentText("Item does not exist");
+                error.setContentText("Item does not exist or Empty");
                 error.show();
                 allPartsTable.setItems(allPartsList);
 
@@ -257,7 +259,6 @@ public class ModifyProductForm  implements Initializable {
      * */
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        allPartsList.setAll(Inventory.getAllParts());
         allPartsTable.setItems(allPartsList);
 
         partIdcol.setCellValueFactory(new PropertyValueFactory<>("id"));
